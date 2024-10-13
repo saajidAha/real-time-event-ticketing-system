@@ -1,1 +1,1 @@
-#real-time event ticketing system OOP Coursework
+## Real Time Event Ticketing System (OOP Coursework)
