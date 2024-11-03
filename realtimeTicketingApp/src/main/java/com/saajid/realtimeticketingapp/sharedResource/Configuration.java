@@ -1,5 +1,11 @@
 package com.saajid.realtimeticketingapp.sharedResource;
 
+import com.google.gson.Gson;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * This class is responsible for the configuration of how the user wants to simulate the ticketing system
  */
@@ -10,19 +16,54 @@ public class Configuration {
     private int maxTicketCapacity;
 
     /**
+     * Static variable for the path to serialize and deserialize the JSON configuration file.
+     */
+    private static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/sharedResource/TicketConfig.json";
+
+    /**
      * Constructor
      * @param totalTickets Sets the total tickets in the ticket pool
      * @param ticketReleaseRate Sets the frequency tickets are released by vendors
-     * @param customerRetreivalRate Sets the frequency tickets are purchased by customers
+     * @param customerRetrievalRate Sets the frequency tickets are purchased by customers
      * @param maxTicketCapacity Sets the maximum number of tickets in the ticket pool
      */
-    public Configuration(int totalTickets, int ticketReleaseRate, int customerRetreivalRate, int maxTicketCapacity){
+    public Configuration(int totalTickets, int ticketReleaseRate, int customerRetrievalRate, int maxTicketCapacity){
         this.totalTickets = totalTickets;
         this.ticketReleaseRate = ticketReleaseRate;
-        this.customerRetreivalRate = customerRetreivalRate;
+        this.customerRetreivalRate = customerRetrievalRate;
         this.maxTicketCapacity = maxTicketCapacity;
     }
 
+    /**
+     * Maps object to JSON format and saves it to a File;
+     */
+    public void serialize(){
+            Gson gson = new Gson();
+        try{
+            FileWriter writer = new FileWriter(PATH);
+            gson.toJson(this, writer);
+            System.out.println("Successfully serialized file and saved.");
+            writer.close();
+        }catch (IOException e){
+            System.out.println("Failed to serialize file.");
+        }
+    }
+
+    /**
+     * Maps JSON file to Configuration object
+     */
+    public Configuration deSerialize(){
+        Configuration config = null;
+        Gson gson = new Gson();
+        try{
+            FileReader reader = new FileReader(PATH);
+            config = gson.fromJson(reader, Configuration.class);
+            System.out.println("JSON file de-serialized to Configuration object successfully");
+        }catch (IOException e){
+            System.out.println("Unable to read file.");
+        }
+        return config;
+    }
     /**
      * Getters and Setters
      */
