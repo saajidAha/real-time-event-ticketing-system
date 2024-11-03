@@ -1,0 +1,4 @@
+1. Create 3 directories in a parent directory - 1 for CLI, 1 for Springboot server, 1 for the shared resources(config.json & producer, consumer, tiketpool, configuration classes)
+1.2. implement the configuration class so that whenever it is used by the cli or the backend 
+2. Implement the core logic in the cli and handle all input output and concurrency control.
+3. Implement the backend logic in spring boot by using the rest controller for handling rest api, repository for handling the database interactions...etc
