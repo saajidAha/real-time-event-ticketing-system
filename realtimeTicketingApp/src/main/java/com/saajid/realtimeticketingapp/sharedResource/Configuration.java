@@ -1,7 +1,6 @@
 package com.saajid.realtimeticketingapp.sharedResource;
 
 import com.google.gson.Gson;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -59,6 +58,7 @@ public class Configuration {
             FileReader reader = new FileReader(PATH);
             config = gson.fromJson(reader, Configuration.class);
             System.out.println("JSON file de-serialized to Configuration object successfully");
+            reader.close();
         }catch (IOException e){
             System.out.println("Unable to read file.");
         }
@@ -97,5 +97,15 @@ public class Configuration {
 
     public void setMaxTicketCapacity(int maxTicketCapacity) {
         this.maxTicketCapacity = maxTicketCapacity;
+    }
+
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "totalTickets=" + totalTickets +
+                ", ticketReleaseRate=" + ticketReleaseRate +
+                ", customerRetreivalRate=" + customerRetreivalRate +
+                ", maxTicketCapacity=" + maxTicketCapacity +
+                '}';
     }
 }
