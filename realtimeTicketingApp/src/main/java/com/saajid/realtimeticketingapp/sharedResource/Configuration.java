@@ -41,10 +41,10 @@ public class Configuration {
         try{
             FileWriter writer = new FileWriter(PATH);
             gson.toJson(this, writer);
-            System.out.println("Successfully serialized file and saved.");
+            System.out.println("Successfully serialized as and saved file as TicketConfig.json.");
             writer.close();
         }catch (IOException e){
-            System.out.println("Failed to serialize file.");
+            System.out.println("Failed to serialize Configuration.");
         }
     }
 
@@ -57,7 +57,7 @@ public class Configuration {
         try{
             FileReader reader = new FileReader(PATH);
             config = gson.fromJson(reader, Configuration.class);
-            System.out.println("JSON file de-serialized to Configuration object successfully");
+            System.out.println("TicketConfig.json file de-serialized to Configuration object successfully");
             reader.close();
         }catch (IOException e){
             System.out.println("Unable to read file.");
