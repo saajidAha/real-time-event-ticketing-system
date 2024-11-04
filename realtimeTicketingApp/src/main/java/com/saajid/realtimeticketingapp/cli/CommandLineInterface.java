@@ -35,17 +35,17 @@ public class CommandLineInterface implements CommandLineRunner {
 
     /**
      * Validates user inputs
-     * @param promptMessage The prompt message to be displayed to the user
+     * @param prompt The prompt message to be displayed to the user
      * @return A positive integer
      */
-    private static int validateConfig(String promptMessage){
+    private static int validateConfig(String prompt){
         int response = 0;
         boolean isValidated = false;
 
         while (!isValidated){
             try {
                 Scanner scanner = new Scanner(System.in);
-                System.out.println(promptMessage + ":   ");
+                System.out.println(prompt + ":   ");
                 response = scanner.nextInt();
                 if (response > 0){
                     isValidated = true;
