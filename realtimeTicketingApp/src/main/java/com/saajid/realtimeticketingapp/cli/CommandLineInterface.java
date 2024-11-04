@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+/**
+ * This class will have the logic to implement the main CLI functionality
+ */
 @Component
 public class CommandLineInterface implements CommandLineRunner {
 
