@@ -17,7 +17,7 @@ public class Configuration {
     /**
      * Static variable for the path to serialize and deserialize the JSON configuration file.
      */
-    private static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/sharedResource/TicketConfig.json";
+    private static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/sharedResource/";
 
     /**
      * Constructor
@@ -34,14 +34,17 @@ public class Configuration {
     }
 
     /**
-     * Maps object to JSON format and saves it to a File;
+     * Maps object to JSON format, Text format and saves it to a File;
      */
     public void serialize(){
             Gson gson = new Gson();
         try{
-            FileWriter writer = new FileWriter(PATH);
-            gson.toJson(this, writer);
-            System.out.println("Successfully serialized as and saved file as TicketConfig.json.");
+            FileWriter writer = new FileWriter(PATH + "TicketConfig.json");
+            gson.toJson(this, writer); writer.close();
+
+            writer = new FileWriter(PATH + "TicketConfig.txt");
+            writer.write("Total Tickets: " + this.totalTickets + "\n" + "Ticket Release Rate: " + this.ticketReleaseRate + "\n" + "Customer Retrieval Rate: " +  this.customerRetreivalRate + "\n" + "Maximum Ticket Capacity: " +  this.maxTicketCapacity);
+            System.out.println("Successfully serialized and saved Configuration files as TicketConfig.json & TicketConfig.txt");
             writer.close();
         }catch (IOException e){
             System.out.println("Failed to serialize Configuration.");
@@ -55,7 +58,7 @@ public class Configuration {
         Configuration config = null;
         Gson gson = new Gson();
         try{
-            FileReader reader = new FileReader(PATH);
+            FileReader reader = new FileReader(PATH + "TicketConfig.json");
             config = gson.fromJson(reader, Configuration.class);
             System.out.println("TicketConfig.json file de-serialized to Configuration object successfully");
             reader.close();
