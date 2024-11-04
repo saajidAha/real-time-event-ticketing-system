@@ -1,4 +1,4 @@
-package com.saajid.realtimeticketingapp.cli;
+package com.saajid.realtimeticketingapp.commandLine;
 
 import com.saajid.realtimeticketingapp.sharedResource.Configuration;
 import org.springframework.boot.CommandLineRunner;
@@ -15,17 +15,17 @@ public class CommandLineInterface implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Prompt user
-        int totalTickets = validateConfig("Enter the total number of tickets");
-        int ticketReleaseRate = validateConfig("Enter the ticket release rate");
-        int customerRetreivalRate = validateConfig("Enter the customer retrieval rate");
-        int maxTicketCapacity = validateConfig("Enter the maximum ticket capcity");
+        int totalTickets = validatePositiveInt("Enter the total number of tickets");
+        int ticketReleaseRate = validatePositiveInt("Enter the ticket release rate");
+        int customerRetreivalRate = validatePositiveInt("Enter the customer retrieval rate");
+        int maxTicketCapacity = validatePositiveInt("Enter the maximum ticket capcity");
 
         // Serialize
         Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetreivalRate, maxTicketCapacity);
         config.serialize();
 
         // Start / Stop system
-        if ( validateSystemStart() ){
+        if ( validateYesNo() ){
             System.out.println("System started successfully");
         } else{
             System.out.println("System process aborted.");
@@ -38,7 +38,7 @@ public class CommandLineInterface implements CommandLineRunner {
      * @param prompt The prompt message to be displayed to the user
      * @return A positive integer
      */
-    private static int validateConfig(String prompt){
+    private static int validatePositiveInt(String prompt){
         int response = 0;
         boolean isValidated = false;
 
@@ -63,7 +63,7 @@ public class CommandLineInterface implements CommandLineRunner {
      * Validates user input to start / stop system
      * @return True if response is "yes", false if "no"
      */
-    private static boolean validateSystemStart(){
+    private static boolean validateYesNo(){
         boolean startSystem = false;
         boolean validated = false;
 
