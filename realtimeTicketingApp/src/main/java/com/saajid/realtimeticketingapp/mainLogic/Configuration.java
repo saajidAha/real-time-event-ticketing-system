@@ -16,7 +16,7 @@ public class Configuration {
 
 
 //      Static variable for the path to save any serialized files.
-    private static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/sharedResource/";
+    private static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/mainLogic/";
 
     /**
      * Constructor
