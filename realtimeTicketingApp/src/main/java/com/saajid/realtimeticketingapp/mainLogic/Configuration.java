@@ -54,7 +54,7 @@ public class Configuration {
     /**
      * Maps JSON file to Configuration object
      */
-    public Configuration deSerialize(){
+    public static Configuration deSerialize(){
         Configuration config = null;
         Gson gson = new Gson();
         try{
