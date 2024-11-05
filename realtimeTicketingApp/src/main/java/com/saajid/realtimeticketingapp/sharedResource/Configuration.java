@@ -14,9 +14,8 @@ public class Configuration {
     private int customerRetreivalRate;
     private int maxTicketCapacity;
 
-    /**
-     * Static variable for the path to serialize and deserialize the JSON configuration file.
-     */
+
+//      Static variable for the path to save any serialized files.
     private static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/sharedResource/";
 
     /**
@@ -40,7 +39,8 @@ public class Configuration {
             Gson gson = new Gson();
         try{
             FileWriter writer = new FileWriter(PATH + "TicketConfig.json");
-            gson.toJson(this, writer); writer.close();
+            gson.toJson(this, writer);
+            writer.close();
 
             writer = new FileWriter(PATH + "TicketConfig.txt");
             writer.write("Total Tickets: " + this.totalTickets + "\n" + "Ticket Release Rate: " + this.ticketReleaseRate + "\n" + "Customer Retrieval Rate: " +  this.customerRetreivalRate + "\n" + "Maximum Ticket Capacity: " +  this.maxTicketCapacity);
