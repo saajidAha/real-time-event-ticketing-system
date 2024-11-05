@@ -1,6 +1,7 @@
 package com.saajid.realtimeticketingapp.commandLine;
 
 import com.saajid.realtimeticketingapp.mainLogic.Configuration;
+import com.saajid.realtimeticketingapp.mainLogic.Simulator;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,19 +15,27 @@ public class CommandLineInterface implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Prompt user
-        int totalTickets = validatePositiveInt("Enter the total number of tickets");
-        int ticketReleaseRate = validatePositiveInt("Enter the ticket release rate");
-        int customerRetreivalRate = validatePositiveInt("Enter the customer retrieval rate");
-        int maxTicketCapacity = validatePositiveInt("Enter the maximum ticket capcity");
 
-        // Serialize
+        // Prompt user
+        int totalTickets = validatePositiveInt("Enter the total number of initial tickets");
+        int ticketReleaseRate = validatePositiveInt("Enter the ticket release rate (in milliseconds)");
+        int customerRetreivalRate = validatePositiveInt("Enter the customer retrieval rate (in milliseconds)");
+
+        int maxTicketCapacity = validatePositiveInt("Enter the maximum ticket capacity");
+        while (maxTicketCapacity < totalTickets) {
+            System.out.println("Maximum ticket capacity cannot be less than the initial total tickets. please try again.");
+            maxTicketCapacity = validatePositiveInt("Enter the maximum ticket capacity");
+        }
+
+        // Create config object
         Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetreivalRate, maxTicketCapacity);
-        config.serialize();
 
         // Start / Stop system
         if ( validateYesNo() ){
             System.out.println("System started successfully");
+            // Run simulation
+            Simulator simulator = new Simulator(config);
+            simulator.simulate();
         } else{
             System.out.println("System process aborted.");
         }
@@ -86,4 +95,5 @@ public class CommandLineInterface implements CommandLineRunner {
         }
         return startSystem;
     }
+
 }
