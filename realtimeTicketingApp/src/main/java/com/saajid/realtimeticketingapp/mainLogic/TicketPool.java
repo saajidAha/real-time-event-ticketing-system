@@ -13,36 +13,38 @@ public class TicketPool {
     public TicketPool(Configuration config){
         this.tickets = new Vector<>();
         this.config = config;
+        for (int i=0; i < config.getTotalTickets(); i++){
+            this.tickets.add(new Ticket());
+        }
     }
 
-    public void addTicket(Ticket ticket){
-        while ( this.config.getTotalTickets() == this.config.getMaxTicketCapacity() ){
+    public synchronized void addTicket(Ticket ticket){
+        while ( this.tickets.size()
+                == this.config.getMaxTicketCapacity() ){
             try {
                 wait();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-        if ( this.config.getTotalTickets() < this.config.getMaxTicketCapacity() ){
+        if ( this.tickets.size() < this.config.getMaxTicketCapacity() ){
             this.tickets.add(ticket);
-            System.out.println(Thread.currentThread().getName() + "added ticket successfully");
+            System.out.println(Thread.currentThread().getName() + " added ticket successfully. ticket id: " + ticket.getTicketID() );
             notifyAll();
         }
     }
 
-    public void removeTicket(){
-        while (this.config.getTotalTickets() == 0){
+    public synchronized void removeTicket(){
+        while (this.tickets.isEmpty()){
             try {
                 wait();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-        if (this.config.getTotalTickets() > 0){
-            this.tickets.removeLast();
-            System.out.println(Thread.currentThread().getName() + "removed ticket successfully");
+            Ticket removedTicket = this.tickets.removeFirst();
+            System.out.println(Thread.currentThread().getName() + " removed ticket successfully ticket id: " + removedTicket.getTicketID());
             notifyAll();
-        }
     }
 
 }
