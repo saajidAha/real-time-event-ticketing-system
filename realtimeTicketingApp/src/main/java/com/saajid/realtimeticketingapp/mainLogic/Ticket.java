@@ -1,17 +1,20 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
+import java.util.UUID;
+
 public class Ticket {
-    private int ticketID;
+    private UUID ticketID;
 
     public Ticket () {
-        this.ticketID = 123;
+        this.ticketID = UUID.randomUUID();
     }
 
-    public int getTicketID() {
+    public UUID getTicketID() {
         return ticketID;
     }
 
-    public void setTicketID(int ticketID) {
+    public void setTicketID(UUID ticketID) {
         this.ticketID = ticketID;
     }
+
 }
