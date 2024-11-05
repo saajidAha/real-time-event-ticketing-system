@@ -1,6 +1,6 @@
 package com.saajid.realtimeticketingapp.commandLine;
 
-import com.saajid.realtimeticketingapp.sharedResource.Configuration;
+import com.saajid.realtimeticketingapp.mainLogic.Configuration;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
