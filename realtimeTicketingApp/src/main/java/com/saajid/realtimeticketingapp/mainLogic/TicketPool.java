@@ -13,9 +13,10 @@ public class TicketPool {
     public TicketPool(Configuration config){
         this.tickets = new Vector<>();
         this.config = config;
-        for (int i=0; i < config.getTotalTickets(); i++){
+        for (int i=0; i < this.config.getTotalTickets(); i++){
             this.tickets.add(new Ticket());
         }
+        System.out.println("System initialized with " + this.config.getTotalTickets() + " tickets: Ticket ID's: " + this.tickets.toString() );
     }
 
     public synchronized void addTicket(Ticket ticket){
@@ -29,7 +30,7 @@ public class TicketPool {
         }
         if ( this.tickets.size() < this.config.getMaxTicketCapacity() ){
             this.tickets.add(ticket);
-            System.out.println(Thread.currentThread().getName() + " added ticket successfully. ticket id: " + ticket.getTicketID() );
+            System.out.println(Thread.currentThread().getName() + " issued ticket successfully: [Ticket ID:  " + ticket.getTicketID() + "]");
             notifyAll();
         }
     }
@@ -43,7 +44,7 @@ public class TicketPool {
             }
         }
             Ticket removedTicket = this.tickets.removeFirst();
-            System.out.println(Thread.currentThread().getName() + " removed ticket successfully ticket id: " + removedTicket.getTicketID());
+            System.out.println(Thread.currentThread().getName() + " purchased ticket successfully: [Ticket ID: " + removedTicket.getTicketID() + "]");
             notifyAll();
     }
 
