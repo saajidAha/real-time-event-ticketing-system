@@ -1,4 +1,4 @@
-package com.saajid.realtimeticketingapp.sharedResource;
+package com.saajid.realtimeticketingapp.mainLogic;
 
 import com.google.gson.Gson;
 import java.io.FileReader;

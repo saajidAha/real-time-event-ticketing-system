@@ -1,10 +1,10 @@
-package com.saajid.realtimeticketingapp.sharedResource;
+package com.saajid.realtimeticketingapp.mainLogic;
 
 public class Ticket {
     private int ticketID;
 
-    public Ticket(int ticketID) {
-        this.ticketID = ticketID;
+    public Ticket () {
+        this.ticketID = 123;
     }
 
     public int getTicketID() {
