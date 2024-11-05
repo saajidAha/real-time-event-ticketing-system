@@ -3,18 +3,22 @@ package com.saajid.realtimeticketingapp.mainLogic;
 import java.util.UUID;
 
 public class Ticket {
-    private UUID ticketID;
+    private String ticketID;
 
     public Ticket () {
-        this.ticketID = UUID.randomUUID();
+        this.ticketID = UUID.randomUUID().toString().substring(0,8);
     }
 
-    public UUID getTicketID() {
+    public String getTicketID() {
         return ticketID;
     }
 
-    public void setTicketID(UUID ticketID) {
+    public void setTicketID(String ticketID) {
         this.ticketID = ticketID;
     }
 
+    @Override
+    public String toString() {
+        return ticketID;
+    }
 }
