@@ -3,3 +3,21 @@
 2. Implement the core logic in the cli and handle all input output and concurrency control.
 3. Implement the backend logic in spring boot by using the rest controller for handling rest api endpoints, repository for handling the database interactions...etc
 4. implement the frontend using react. connect it to the backend.
+
+=> TicketPool Class
+create thread safe data structure; Vector;
+producer add ticket if available tickets less than max and notify() if tickets above 0; and wait() if tickets above ticket limit; in addTicket();
+consumer remove ticket if ticket above 0 and notify(); if tickets less than 0 wait(); in removeTicket();
+
+=> Simulation Class
+inject configuration object as a dependency injection; or make the deserialize method static and call the class directly to deserialize;
+deserialize the configuration and create object;
+create simulate methods with logging capabilites;
+
+=>TicketController class
+create ticket object based on the data coming from the fronend by extraction from the json.
+serialize it to the specific location.
+inject simulation bean as dependency;
+run the simulation dependency based on the api calls; the simulation should run based on the new data;
+
+ 
