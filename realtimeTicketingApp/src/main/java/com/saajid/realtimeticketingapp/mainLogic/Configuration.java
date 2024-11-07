@@ -21,7 +21,7 @@ public class Configuration {
 
 
 //      Static variable for the path to save any serialized files.
-    public static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/mainLogic/";
+    public static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/data/";
 
 //    add the handler just once when the class loads. (static initialization)
     static{
