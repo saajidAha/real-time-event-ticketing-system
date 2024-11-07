@@ -12,6 +12,10 @@ public class TicketPool {
     private Configuration config;
     private static Logger logger = Logger.getLogger(TicketPool.class.getName());
 
+//    add single handler when the class loads
+    static{
+        logger.addHandler( LoggerHandler.getFileHandler() );
+    }
     /**
      * Initializes the vector with specified initial number of tickets
      * Logs info to the console

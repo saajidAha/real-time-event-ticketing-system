@@ -1,6 +1,8 @@
 package com.saajid.realtimeticketingapp.commandLine;
 
+import ch.qos.logback.classic.model.processor.ConfigurationModelHandler;
 import com.saajid.realtimeticketingapp.mainLogic.Configuration;
+import com.saajid.realtimeticketingapp.mainLogic.LoggerHandler;
 import com.saajid.realtimeticketingapp.mainLogic.Simulator;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,7 +21,7 @@ public class CommandLineInterface implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         // Prompt user for configuration
-        int totalTickets = validatePositiveInt("Enter the total number of initial tickets");
+        int totalTickets = 0; //validatePositiveInt("Enter the total number of initial tickets");
         int ticketReleaseRate = validatePositiveInt("Enter the ticket release rate (in milliseconds)");
         int customerRetrievalRate = validatePositiveInt("Enter the customer retrieval rate (in milliseconds)");
 
@@ -32,11 +34,13 @@ public class CommandLineInterface implements CommandLineRunner {
         // Create config object
         Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
 
+//        add the handler for the logger
         Logger logger = Logger.getLogger(CommandLineInterface.class.getName());
+        logger.addHandler( LoggerHandler.getFileHandler() );
 
         // Start / Stop system
         if ( validateYesNo() ){
-            int numOfVendors = 10; int numOfCustomers = 10;
+            int numOfVendors = 5; int numOfCustomers = 5;
             Simulator simulator = new Simulator(config);
 
             logger.log(Level.INFO, "Concurrent simulation started with " + numOfVendors + " Vendors attempting to release 10 tickets each with a ticket release rate of: "  + config.getTicketReleaseRate() + " milliseconds & " + numOfCustomers + " Customers attempting to purchase " + "10 tickets with a purchasing gap of: " + config.getCustomerRetreivalRate() + " milliseconds");

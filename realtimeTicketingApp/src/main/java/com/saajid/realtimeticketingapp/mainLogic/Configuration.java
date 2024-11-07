@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
 
 /**
  * This class is responsible for the configuration of how the user wants to simulate the ticketing system
@@ -19,7 +21,12 @@ public class Configuration {
 
 
 //      Static variable for the path to save any serialized files.
-    private static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/mainLogic/";
+    public static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/mainLogic/";
+
+//    add the handler just once when the class loads. (static initialization)
+    static{
+        logger.addHandler( LoggerHandler.getFileHandler() );
+    }
 
     /**
      * Constructor
@@ -34,6 +41,7 @@ public class Configuration {
         this.customerRetreivalRate = customerRetrievalRate;
         this.maxTicketCapacity = maxTicketCapacity;
     }
+
 
     /**
      * Maps object to JSON format, Text format and saves it to a File;
@@ -72,6 +80,8 @@ public class Configuration {
         }
         return config;
     }
+
+
     /**
      * Getters and Setters
      */
