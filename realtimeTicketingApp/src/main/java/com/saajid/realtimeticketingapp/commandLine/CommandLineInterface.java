@@ -19,7 +19,7 @@ public class CommandLineInterface implements CommandLineRunner {
         // Prompt user
         int totalTickets = validatePositiveInt("Enter the total number of initial tickets");
         int ticketReleaseRate = validatePositiveInt("Enter the ticket release rate (in milliseconds)");
-        int customerRetreivalRate = validatePositiveInt("Enter the customer retrieval rate (in milliseconds)");
+        int customerRetrievalRate = validatePositiveInt("Enter the customer retrieval rate (in milliseconds)");
 
         int maxTicketCapacity = validatePositiveInt("Enter the maximum ticket capacity");
         while (maxTicketCapacity < totalTickets) {
@@ -28,18 +28,17 @@ public class CommandLineInterface implements CommandLineRunner {
         }
 
         // Create config object
-        Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetreivalRate, maxTicketCapacity);
+        Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
 
         // Start / Stop system
         if ( validateYesNo() ){
+            Simulator simulator = new Simulator(config);
             System.out.println("System started successfully");
             // Run simulation
-            Simulator simulator = new Simulator(config);
-            simulator.simulate();
+            simulator.simulate(10,10);
         } else{
             System.out.println("System process aborted.");
         }
-
     }
 
     /**
