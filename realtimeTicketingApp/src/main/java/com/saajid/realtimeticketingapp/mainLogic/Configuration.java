@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * This class is responsible for the configuration of how the user wants to simulate the ticketing system
@@ -13,6 +15,7 @@ public class Configuration {
     private int ticketReleaseRate;
     private int customerRetreivalRate;
     private int maxTicketCapacity;
+    private static Logger logger = Logger.getLogger(Configuration.class.getName());
 
 
 //      Static variable for the path to save any serialized files.
@@ -44,10 +47,12 @@ public class Configuration {
 
             writer = new FileWriter(PATH + "TicketConfig.txt");
             writer.write("Total Tickets: " + this.totalTickets + "\n" + "Ticket Release Rate: " + this.ticketReleaseRate + "\n" + "Customer Retrieval Rate: " +  this.customerRetreivalRate + "\n" + "Maximum Ticket Capacity: " +  this.maxTicketCapacity);
-            System.out.println("Successfully serialized and saved Configuration files as TicketConfig.json & TicketConfig.txt");
             writer.close();
+
+            logger.log(Level.INFO, "Configuration: Total initial Tickets: " + this.totalTickets + ", Ticket Release Rate: " + this.ticketReleaseRate + ", Customer Retreival Rate: " + this.customerRetreivalRate + ", Maximum Ticket Capacity: "  + this.maxTicketCapacity);
+            logger.log(Level.INFO,"Serialized and saved Configuration files as TicketConfig.json & TicketConfig.txt Successfully");
         }catch (IOException e){
-            System.out.println("Failed to serialize Configuration.");
+            logger.log(Level.INFO,"Failed to serialize Configuration.");
         }
     }
 
@@ -60,10 +65,10 @@ public class Configuration {
         try{
             FileReader reader = new FileReader(PATH + "TicketConfig.json");
             config = gson.fromJson(reader, Configuration.class);
-            System.out.println("TicketConfig.json file de-serialized to Configuration object successfully");
+            logger.log(Level.INFO,"TicketConfig.json file de-serialized to Configuration object successfully");
             reader.close();
         }catch (IOException e){
-            System.out.println("Unable to read file.");
+            logger.log(Level.INFO,"Unable to read file.");
         }
         return config;
     }

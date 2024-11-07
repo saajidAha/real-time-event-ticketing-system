@@ -10,7 +10,7 @@ import java.util.logging.Level;
 public class TicketPool {
     private Vector<Ticket> tickets;
     private Configuration config;
-    private static Logger logger;
+    private static Logger logger = Logger.getLogger(TicketPool.class.getName());
 
     /**
      * Initializes the vector with specified initial number of tickets
@@ -23,7 +23,6 @@ public class TicketPool {
         for (int i=0; i < this.config.getTotalTickets(); i++){
             this.tickets.add(new Ticket());
         }
-        logger = Logger.getLogger(TicketPool.class.getName());
         String ticketLog = "System initialized with " + this.config.getTotalTickets() + " tickets: Ticket ID's: " + this.tickets.toString();
         logger.log(Level.INFO, ticketLog);
     }
@@ -43,7 +42,7 @@ public class TicketPool {
             }
         }
         this.tickets.add(ticket);
-        String ticketLog = Thread.currentThread().getName() + " issued ticket successfully: [Ticket ID:  " + ticket.getTicketID() + "]";
+        String ticketLog = Thread.currentThread().getName() + " issued ticket: [Ticket ID:  " + ticket.getTicketID() + "]";
         logger.log(Level.INFO, ticketLog);
         notifyAll();
     }
@@ -61,7 +60,7 @@ public class TicketPool {
             }
         }
         Ticket removedTicket = this.tickets.removeFirst();
-        String ticketLog = Thread.currentThread().getName() + " purchased ticket successfully: [Ticket ID: " + removedTicket.getTicketID() + "]";
+        String ticketLog = Thread.currentThread().getName() + " purchased ticket: [Ticket ID: " + removedTicket.getTicketID() + "]";
         logger.log(Level.INFO, ticketLog);
         notifyAll();
     }
