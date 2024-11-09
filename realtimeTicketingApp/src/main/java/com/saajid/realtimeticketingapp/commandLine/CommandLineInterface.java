@@ -21,7 +21,7 @@ public class CommandLineInterface implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         // Prompt user for configuration
-        int totalTickets = 0; //validatePositiveInt("Enter the total number of initial tickets");
+        int totalTickets = validatePositiveInt("Enter the total number of initial tickets");
         int ticketReleaseRate = validatePositiveInt("Enter the ticket release rate (in milliseconds)");
         int customerRetrievalRate = validatePositiveInt("Enter the customer retrieval rate (in milliseconds)");
 
@@ -37,13 +37,12 @@ public class CommandLineInterface implements CommandLineRunner {
 //        add the handler for the logger
         Logger logger = Logger.getLogger(CommandLineInterface.class.getName());
         logger.addHandler( LoggerHandler.getFileHandler() );
-
         // Start / Stop system
         if ( validateYesNo() ){
-            int numOfVendors = 5; int numOfCustomers = 5;
+            int numOfVendors = 10; int numOfCustomers = 10;
             Simulator simulator = new Simulator(config);
 
-            logger.log(Level.INFO, "Concurrent simulation started with " + numOfVendors + " Vendors attempting to release 10 tickets each with a ticket release rate of: "  + config.getTicketReleaseRate() + " milliseconds & " + numOfCustomers + " Customers attempting to purchase " + "10 tickets with a purchasing gap of: " + config.getCustomerRetreivalRate() + " milliseconds");
+            logger.log(Level.INFO, "Simulation started with " + numOfVendors + " Vendors attempting to release tickets each with a ticket release rate of: "  + config.getTicketReleaseRate() + " milliseconds & " + numOfCustomers + " Customers attempting to purchase tickets with a purchasing delay of: " + config.getCustomerRetreivalRate() + " milliseconds");
 
             // Run simulation
             simulator.simulate(numOfVendors,numOfCustomers);
