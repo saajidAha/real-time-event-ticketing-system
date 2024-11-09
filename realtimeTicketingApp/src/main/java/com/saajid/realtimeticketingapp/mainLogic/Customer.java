@@ -5,22 +5,14 @@ package com.saajid.realtimeticketingapp.mainLogic;
  */
 public class Customer implements Runnable{
     private TicketPool ticketPool;
-    private int customerRetreivalRate;
 
-    public Customer(TicketPool ticketPool, int customerRetreivalRate){
+    public Customer(TicketPool ticketPool){
         this.ticketPool = ticketPool;
-        this.customerRetreivalRate = customerRetreivalRate;
     }
 
     @Override
-    public void run() {
-        for (int i=0; i<10; i++){
-            ticketPool.removeTicket();
-            try {
-                Thread.sleep( customerRetreivalRate );
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public void run(){
+        ticketPool.removeTicket();
     }
+
 }

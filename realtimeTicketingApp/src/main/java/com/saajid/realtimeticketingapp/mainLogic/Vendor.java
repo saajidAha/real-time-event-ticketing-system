@@ -5,22 +5,12 @@ package com.saajid.realtimeticketingapp.mainLogic;
  */
 public class Vendor implements Runnable{
     private TicketPool ticketPool;
-    private int ticketReleaseRate;
 
-    public Vendor(TicketPool ticketPool, int ticketReleaseRate){
+    public Vendor(TicketPool ticketPool){
         this.ticketPool = ticketPool;
-        this.ticketReleaseRate = ticketReleaseRate;
     }
-
     @Override
-    public void run() {
-        for (int i=0; i<10; i++){
-            ticketPool.addTicket( new Ticket() );
-            try {
-                Thread.sleep( ticketReleaseRate );
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public void run(){
+        this.ticketPool.addTicket( new Ticket() );
     }
 }
