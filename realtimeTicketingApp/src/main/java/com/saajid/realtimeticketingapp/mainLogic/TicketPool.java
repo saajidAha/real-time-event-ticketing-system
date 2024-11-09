@@ -1,5 +1,7 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
+import jakarta.annotation.PostConstruct;
+
 import java.util.Vector;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -12,10 +14,12 @@ public class TicketPool {
     private Configuration config;
     private static Logger logger = Logger.getLogger(TicketPool.class.getName());
 
-//    add single handler when the class loads
+    // static initializer
     static{
+    //add a single handler for logger when the class loads for all instances
         logger.addHandler( LoggerHandler.getFileHandler() );
     }
+
     /**
      * Initializes the vector with specified initial number of tickets
      * Logs info to the console
@@ -24,8 +28,16 @@ public class TicketPool {
     public TicketPool(Configuration config){
         this.tickets = new Vector<>();
         this.config = config;
-        for (int i=0; i < this.config.getTotalTickets(); i++){
-            this.tickets.add(new Ticket());
+    }
+
+    // runs this code immediately after initialzation of the constructor
+    @PostConstruct
+    public void init(){
+        // fill the ticket array with the specified number of tickets.
+        if (this.config.getTotalTickets() != 0){
+            for (int i=0; i < this.config.getTotalTickets(); i++){
+                this.tickets.add(new Ticket());
+            }
         }
         String ticketLog = "System initialized with " + this.config.getTotalTickets() + " tickets: Ticket ID's: " + this.tickets.toString();
         logger.log(Level.INFO, ticketLog);
@@ -37,18 +49,31 @@ public class TicketPool {
      * @param ticket The ticket that will be added to the vector
      */
     public synchronized void addTicket(Ticket ticket){
+        // wait if the ticket array is full
         while ( this.tickets.size()
                 == this.config.getMaxTicketCapacity() ){
             try {
                 wait();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                logger.log(Level.WARNING,Thread.currentThread().getName() +  " Thread has been interuppted while waiting");
             }
         }
-        this.tickets.add(ticket);
-        String ticketLog = Thread.currentThread().getName() + " issued ticket: [Ticket ID:  " + ticket.getTicketID() + "]";
-        logger.log(Level.INFO, ticketLog);
-        notifyAll();
+        // add ticket if the ticket array is not full
+        if( this.tickets.size() < this.config.getMaxTicketCapacity()){
+            this.tickets.add(ticket);
+            String ticketLog = Thread.currentThread().getName() + " issued ticket: [Ticket ID:  " + ticket.getTicketID() + "]";
+            logger.log(Level.INFO, ticketLog);
+
+            // sleep after adding ticket
+            try {
+                Thread.sleep(config.getTicketReleaseRate());
+            } catch (InterruptedException e) {
+                logger.log(Level.WARNING,Thread.currentThread().getName() +  " Thread has been interuppted while waiting");
+            }
+
+            // notify all waiting customers after task is complete
+            notifyAll();
+        }
     }
 
     /**
@@ -56,17 +81,27 @@ public class TicketPool {
      * Logs info to the console
      */
     public synchronized void removeTicket(){
+        // wait if the ticket array is empty
         while (this.tickets.isEmpty()){
             try {
                 wait();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                logger.log(Level.WARNING,Thread.currentThread().getName() +  " Thread has been interuppted while waiting");
             }
         }
+        // remove the ticket if ticket array is not empty
         Ticket removedTicket = this.tickets.removeFirst();
         String ticketLog = Thread.currentThread().getName() + " purchased ticket: [Ticket ID: " + removedTicket.getTicketID() + "]";
         logger.log(Level.INFO, ticketLog);
+
+        // sleep after removing the ticket
+        try {
+            Thread.sleep(config.getCustomerRetreivalRate());
+        } catch (InterruptedException e) {
+            logger.log(Level.WARNING,Thread.currentThread().getName() +  " Thread has been interuppted while waiting");
+        }
+
+        // notify all waiting producers after task is complete
         notifyAll();
     }
-
 }
