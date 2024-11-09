@@ -4,10 +4,8 @@ import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import java.util.logging.SimpleFormatter;
 
 /**
  * This class is responsible for the configuration of how the user wants to simulate the ticketing system
@@ -15,7 +13,7 @@ import java.util.logging.SimpleFormatter;
 public class Configuration {
     private int totalTickets;
     private int ticketReleaseRate;
-    private int customerRetreivalRate;
+    private int customerRetrievalRate;
     private int maxTicketCapacity;
     private static Logger logger = Logger.getLogger(Configuration.class.getName());
 
@@ -38,9 +36,11 @@ public class Configuration {
     public Configuration(int totalTickets, int ticketReleaseRate, int customerRetrievalRate, int maxTicketCapacity){
         this.totalTickets = totalTickets;
         this.ticketReleaseRate = ticketReleaseRate;
-        this.customerRetreivalRate = customerRetrievalRate;
+        this.customerRetrievalRate = customerRetrievalRate;
         this.maxTicketCapacity = maxTicketCapacity;
+        serialize();
     }
+
 
 
     /**
@@ -54,13 +54,13 @@ public class Configuration {
             writer.close();
 
             writer = new FileWriter(PATH + "TicketConfig.txt");
-            writer.write("Total Tickets: " + this.totalTickets + "\n" + "Ticket Release Rate: " + this.ticketReleaseRate + "\n" + "Customer Retrieval Rate: " +  this.customerRetreivalRate + "\n" + "Maximum Ticket Capacity: " +  this.maxTicketCapacity);
+            writer.write("Total Tickets: " + this.totalTickets + "\n" + "Ticket Release Rate: " + this.ticketReleaseRate + "\n" + "Customer Retrieval Rate: " +  this.customerRetrievalRate + "\n" + "Maximum Ticket Capacity: " +  this.maxTicketCapacity);
             writer.close();
 
-            logger.log(Level.INFO, "Configuration: Total initial Tickets: " + this.totalTickets + ", Ticket Release Rate: " + this.ticketReleaseRate + ", Customer Retreival Rate: " + this.customerRetreivalRate + ", Maximum Ticket Capacity: "  + this.maxTicketCapacity);
+            logger.log(Level.INFO, "Configuration: Total initial Tickets: " + this.totalTickets + ", Ticket Release Rate: " + this.ticketReleaseRate + ", Customer Retreival Rate: " + this.customerRetrievalRate + ", Maximum Ticket Capacity: "  + this.maxTicketCapacity);
             logger.log(Level.INFO,"Serialized and saved Configuration files as TicketConfig.json & TicketConfig.txt Successfully");
         }catch (IOException e){
-            logger.log(Level.INFO,"Failed to serialize Configuration.");
+            logger.log(Level.SEVERE,"Failed to serialize Configuration.");
         }
     }
 
@@ -68,15 +68,15 @@ public class Configuration {
      * Maps JSON file to Configuration object
      */
     public static Configuration deSerialize(){
-        Configuration config = null;
         Gson gson = new Gson();
+        Configuration config = null;
         try{
             FileReader reader = new FileReader(PATH + "TicketConfig.json");
             config = gson.fromJson(reader, Configuration.class);
             logger.log(Level.INFO,"TicketConfig.json file de-serialized to Configuration object successfully");
             reader.close();
         }catch (IOException e){
-            logger.log(Level.INFO,"Unable to read file.");
+            logger.log(Level.SEVERE,"Unable to read file.");
         }
         return config;
     }
@@ -101,12 +101,12 @@ public class Configuration {
         this.ticketReleaseRate = ticketReleaseRate;
     }
 
-    public int getCustomerRetreivalRate() {
-        return customerRetreivalRate;
+    public int getCustomerRetrievalRate() {
+        return customerRetrievalRate;
     }
 
-    public void setCustomerRetreivalRate(int customerRetreivalRate) {
-        this.customerRetreivalRate = customerRetreivalRate;
+    public void setCustomerRetrievalRate(int customerRetrievalRate) {
+        this.customerRetrievalRate = customerRetrievalRate;
     }
 
     public int getMaxTicketCapacity() {
@@ -122,7 +122,7 @@ public class Configuration {
         return "Configuration{" +
                 "totalTickets=" + totalTickets +
                 ", ticketReleaseRate=" + ticketReleaseRate +
-                ", customerRetreivalRate=" + customerRetreivalRate +
+                ", customerRetreivalRate=" + customerRetrievalRate +
                 ", maxTicketCapacity=" + maxTicketCapacity +
                 '}';
     }
