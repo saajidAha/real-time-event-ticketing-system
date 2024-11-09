@@ -1,6 +1,5 @@
 package com.saajid.realtimeticketingapp.commandLine;
 
-import ch.qos.logback.classic.model.processor.ConfigurationModelHandler;
 import com.saajid.realtimeticketingapp.mainLogic.Configuration;
 import com.saajid.realtimeticketingapp.mainLogic.LoggerHandler;
 import com.saajid.realtimeticketingapp.mainLogic.Simulator;
@@ -42,7 +41,7 @@ public class CommandLineInterface implements CommandLineRunner {
             int numOfVendors = 10; int numOfCustomers = 10;
             Simulator simulator = new Simulator(config);
 
-            logger.log(Level.INFO, "Simulation started with " + numOfVendors + " Vendors attempting to release tickets each with a ticket release rate of: "  + config.getTicketReleaseRate() + " milliseconds & " + numOfCustomers + " Customers attempting to purchase tickets with a purchasing delay of: " + config.getCustomerRetreivalRate() + " milliseconds");
+            logger.log(Level.INFO, "Simulation started with " + numOfVendors + " Vendors attempting to release tickets each with a ticket release rate of: "  + config.getTicketReleaseRate() + " milliseconds & " + numOfCustomers + " Customers attempting to purchase tickets with a purchasing delay of: " + config.getCustomerRetrievalRate() + " milliseconds");
 
             // Run simulation
             simulator.simulate(numOfVendors,numOfCustomers);
