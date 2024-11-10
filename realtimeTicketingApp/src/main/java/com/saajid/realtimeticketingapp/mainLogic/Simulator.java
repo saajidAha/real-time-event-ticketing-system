@@ -1,6 +1,8 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is responsible for initializing and simulating multiple vendor and customer threads
@@ -10,6 +12,11 @@ public class Simulator {
     private ArrayList<Thread> vendorThreads;
     private ArrayList<Thread> customerThreads;
     private ArrayList<Thread> allThreads;
+    private static Logger logger = Logger.getLogger(Simulator.class.getName());
+
+    static{
+        logger.addHandler(LoggerHandler.getFileHandler());
+    }
 
     public Simulator(Configuration config){
         this.ticketPool = new TicketPool(config);
@@ -49,11 +56,11 @@ public class Simulator {
                 eachThread.join();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.out.println("issue while joining");
+                logger.log(Level.SEVERE,"issue while joining");
             }
         }
 
-        System.out.println("Simulation execution completed successfully.");
+        logger.log(Level.INFO,"Simulation execution completed successfully.");
 
 
     }
