@@ -38,7 +38,7 @@ public class CommandLineInterface implements CommandLineRunner {
         logger.addHandler( LoggerHandler.getFileHandler() );
         // Start / Stop system
         if ( validateYesNo() ){
-            int numOfVendors = 10; int numOfCustomers = 10;
+            int numOfVendors = 5; int numOfCustomers = 7;
             Simulator simulator = new Simulator(config);
 
             logger.log(Level.INFO, "Simulation started with " + numOfVendors + " Vendors attempting to release tickets each with a ticket release rate of: "  + config.getTicketReleaseRate() + " milliseconds & " + numOfCustomers + " Customers attempting to purchase tickets with a purchasing delay of: " + config.getCustomerRetrievalRate() + " milliseconds");
