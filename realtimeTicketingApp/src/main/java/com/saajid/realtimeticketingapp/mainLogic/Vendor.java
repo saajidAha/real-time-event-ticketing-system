@@ -9,8 +9,10 @@ public class Vendor implements Runnable{
     public Vendor(TicketPool ticketPool){
         this.ticketPool = ticketPool;
     }
+
+//    each vendor releases a single ticket
     @Override
     public void run(){
-            this.ticketPool.addTicket( new Ticket() );
+        this.ticketPool.addTicket( new Ticket() );
     }
 }

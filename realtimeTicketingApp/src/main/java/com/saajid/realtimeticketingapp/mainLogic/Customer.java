@@ -10,6 +10,7 @@ public class Customer implements Runnable{
         this.ticketPool = ticketPool;
     }
 
+    // each customer purchases a single ticket
     @Override
     public void run(){
         ticketPool.removeTicket();
