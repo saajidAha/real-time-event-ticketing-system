@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
-import java.util.logging.Level;
+
+import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
 
 /**
  * This class will have the logic to implement the main CLI functionality
@@ -32,22 +33,20 @@ public class CommandLineInterface implements CommandLineRunner {
 
         // Create config object
         Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
+        config.serialize();
 
 //        add the handler for the logger
         Logger logger = Logger.getLogger(CommandLineInterface.class.getName());
         logger.addHandler( LoggerHandler.getFileHandler() );
         // Start / Stop system
         if ( validateYesNo() ){
-            int numOfVendors = 1000; int numOfCustomers = 1000;
             Simulator simulator = new Simulator(config);
-
-            logger.log(Level.INFO, "Simulation Request recieved from the Command Line Interface");
-            logger.log(Level.INFO, "Simulation started with " + numOfVendors + " Vendors attempting to release tickets each with a ticket release rate of: "  + config.getTicketReleaseRate() + " milliseconds & " + numOfCustomers + " Customers attempting to purchase tickets with a purchasing delay of: " + config.getCustomerRetrievalRate() + " milliseconds");
+            logInfo(logger, "Simulation Request recieved from the CLI started successfully", "INFO");
 
             // Run simulation
-            simulator.simulate(numOfVendors,numOfCustomers);
+            simulator.simulate();
         } else{
-            logger.log(Level.INFO, "System stopped as per requested.");
+            logInfo(logger, "System stopped as per requested.", "INFO");
         }
     }
 

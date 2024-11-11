@@ -9,13 +9,15 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
+
 /**
  * This class is the shared resource that going to be accessed by the Vendors and Customers
  */
 public class TicketPool {
     private Configuration config;
     private Vector<Ticket> tickets;
-    public static ArrayList<String> logs = new ArrayList<>(); // this will store the logs to display to the frontend;
+//    private static ArrayList<String> logs = new ArrayList<>(); // this will store the logs to display to the frontend;
 
     private static Logger logger = Logger.getLogger(TicketPool.class.getName());
     private Lock lock;
@@ -60,7 +62,7 @@ public class TicketPool {
             for (int i=0; i < this.config.getTotalTickets(); i++) {
                 this.tickets.add(new Ticket());
             }
-            this.logInfo("System initialized with " + this.config.getTotalTickets() + " tickets: Ticket ID's: " + this.tickets, "INFO");
+            logInfo(logger,"System initialized with " + this.config.getTotalTickets() + " tickets: Ticket ID's: " + this.tickets, "INFO");
     }
 
     /**
@@ -77,7 +79,7 @@ public class TicketPool {
 //                check if a signal is recieved from a producer else terminate;
                 boolean signalReceived = this.canProduce.await(this.timeout, TimeUnit.MILLISECONDS);
                 if (!signalReceived) {
-                    this.logInfo(Thread.currentThread().getName() + " Thread terminated due to no customer attempting to buy after a timeout of " + this.timeout + " milliseconds","WARNING");
+                    logInfo(logger,Thread.currentThread().getName() + " Thread terminated due to no customer attempting to buy after a timeout of " + this.timeout + " milliseconds","WARNING");
                     this.isProgramComplete = true;
                     return;
                 }
@@ -88,14 +90,14 @@ public class TicketPool {
             // add ticket if the ticket array is not full
             if (this.tickets.size() < this.config.getMaxTicketCapacity()) {
                 this.tickets.add(ticket);
-                this.logInfo(Thread.currentThread().getName() + " issued ticket: [Ticket ID:  " + ticket.getTicketID() + "]", "INFO");
+                logInfo(logger,Thread.currentThread().getName() + " issued ticket: [Ticket ID:  " + ticket.getTicketID() + "]", "INFO");
 
                 // sleep after adding ticket
                 Thread.sleep(config.getTicketReleaseRate());
                 this.canConsume.signalAll();
             }
         } catch (InterruptedException e){
-            this.logInfo("Thread has been interrupted", "SEVERE");
+            logInfo(logger,"Thread has been interrupted", "SEVERE");
 
         } finally {
             // release lock and notify all waiting customers after task is complete
@@ -115,7 +117,7 @@ public class TicketPool {
             while (this.tickets.isEmpty()) {
                 boolean signalReceived = this.canConsume.await(timeout, TimeUnit.MILLISECONDS);
                 if (!signalReceived) {
-                    this.logInfo(Thread.currentThread().getName() + " Thread terminated due to no Vendor releasing tickets after a timeout of " + this.timeout + " milliseconds", "WARNING");
+                    logInfo(logger,Thread.currentThread().getName() + " Thread terminated due to no Vendor releasing tickets after a timeout of " + this.timeout + " milliseconds", "WARNING");
                     this.isProgramComplete = true; // mark program complete if wait times out
                     return;
                 }
@@ -124,32 +126,16 @@ public class TicketPool {
 
             // Remove the ticket if ticket array is not empty
             Ticket removedTicket = this.tickets.removeFirst();
-            this.logInfo(Thread.currentThread().getName() + " purchased ticket: [Ticket ID: " + removedTicket.getTicketID() + "]", "INFO");
+            logInfo(logger,Thread.currentThread().getName() + " purchased ticket: [Ticket ID: " + removedTicket.getTicketID() + "]", "INFO");
 
             // Sleep after removing the ticket
             Thread.sleep(config.getCustomerRetrievalRate());
             this.canProduce.signalAll(); // Notify waiting producers
 
         } catch (InterruptedException e) {
-            this.logInfo("Thread has been interrupted", "SEVERE");
+            logInfo(logger,"Thread has been interrupted", "SEVERE");
         } finally {
             this.lock.unlock();
         }
-    }
-
-    /**
-     * Handles logging info and storing the logs for future use
-     * @param message The Log message
-     * @param level The severity level (INFO, WARNING, SEVERE)
-     */
-    public void logInfo(String message, String level){
-        if (level.equalsIgnoreCase("INFO")){
-            logger.log(Level.INFO, message);
-        }else if(level.equalsIgnoreCase("WARNING")){
-            logger.log(Level.WARNING, message);
-        }else if (level.equalsIgnoreCase("SEVERE")){
-            logger.log(Level.SEVERE, message);
-        }
-        logs.add(message);
     }
 }
