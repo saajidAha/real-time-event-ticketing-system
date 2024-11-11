@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
+
 /**
  * This class is responsible for the configuration of how the user wants to simulate the ticketing system
  */
@@ -28,6 +30,11 @@ public class Configuration {
         logger.addHandler( LoggerHandler.getFileHandler() );
     }
 
+    // Default constructor for Jackson deserialization
+    public Configuration() {
+    // this constructor is required for jackson to convert the json payload to object;
+    }
+
     /**
      * Constructor with default values for number of vendores and customers
      * @param totalTickets Sets the total tickets in the ticket pool
@@ -43,7 +50,6 @@ public class Configuration {
         // default values for number of vendors and customers
         this.numOfVendors = 10;
         this.numOfCustomers = 10;
-        serialize();
     }
 
     /**
@@ -56,7 +62,6 @@ public class Configuration {
         this.maxTicketCapacity = maxTicketCapacity;
         this.numOfVendors = numOfVendors;
         this.numOfCustomers = numOfCustomers;
-        serialize();
     }
 
 
@@ -67,18 +72,16 @@ public class Configuration {
             Gson gson = new Gson();
         try{
             FileWriter writer = new FileWriter(PATH + "TicketConfig.json");
-            gson.toJson(this, writer);
-            writer.close();
+            gson.toJson(this, writer); writer.close();
 
             writer = new FileWriter(PATH + "TicketConfig.txt");
             String ticketLog = "Total Tickets: " + this.totalTickets  + ", Ticket Release Rate: " + this.ticketReleaseRate  + ", Customer Retrieval Rate: " +  this.customerRetrievalRate  + ", Maximum Ticket Capacity: " +  this.maxTicketCapacity  + ", Number of Vendors: " + this.numOfVendors  + ", Number of Customers: " + this.numOfCustomers;
-            writer.write(ticketLog);
-            writer.close();
+            writer.write(ticketLog); writer.close();
 
-            logger.log(Level.INFO, ticketLog);
-            logger.log(Level.INFO,"Serialized and saved Configuration files as TicketConfig.json & TicketConfig.txt Successfully");
+            logInfo(logger, ticketLog, "INFO");
+            logInfo(logger, "Serialized and saved Configuration files as TicketConfig.json & TicketConfig.txt Successfully", "INFO");
         }catch (IOException e){
-            logger.log(Level.SEVERE,"Failed to serialize Configuration.");
+            logInfo(logger,"Failed to serialize Configuration.", "SEVERE");
         }
     }
 
@@ -91,14 +94,18 @@ public class Configuration {
         try{
             FileReader reader = new FileReader(PATH + "TicketConfig.json");
             config = gson.fromJson(reader, Configuration.class);
-            logger.log(Level.INFO,"TicketConfig.json file de-serialized to Configuration object successfully");
+
+            logInfo(logger,"TicketConfig.json file de-serialized to Configuration object successfully", "INFO");
             reader.close();
         }catch (IOException e){
-            logger.log(Level.SEVERE,"Unable to read file.");
+            logInfo(logger,"Unable to read file.", "SEVERE");
         }
         return config;
     }
 
+    public static Logger getLogger() {
+        return logger;
+    }
 
     /**
      * Getters and Setters
@@ -141,6 +148,18 @@ public class Configuration {
 
     public int getNumOfCustomers() {
         return numOfCustomers;
+    }
+
+    public void setNumOfVendors(int numOfVendors) {
+        this.numOfVendors = numOfVendors;
+    }
+
+    public void setNumOfCustomers(int numOfCustomers) {
+        this.numOfCustomers = numOfCustomers;
+    }
+
+    public static void setLogger(Logger logger) {
+        Configuration.logger = logger;
     }
 
     @Override
