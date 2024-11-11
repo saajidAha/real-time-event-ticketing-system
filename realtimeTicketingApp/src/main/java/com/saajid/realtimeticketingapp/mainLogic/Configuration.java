@@ -15,6 +15,8 @@ public class Configuration {
     private int ticketReleaseRate;
     private int customerRetrievalRate;
     private int maxTicketCapacity;
+    private int numOfVendors;
+    private int numOfCustomers;
     private static Logger logger = Logger.getLogger(Configuration.class.getName());
 
 
@@ -27,7 +29,7 @@ public class Configuration {
     }
 
     /**
-     * Constructor
+     * Constructor with default values for number of vendores and customers
      * @param totalTickets Sets the total tickets in the ticket pool
      * @param ticketReleaseRate Sets the frequency tickets are released by vendors
      * @param customerRetrievalRate Sets the frequency tickets are purchased by customers
@@ -38,9 +40,24 @@ public class Configuration {
         this.ticketReleaseRate = ticketReleaseRate;
         this.customerRetrievalRate = customerRetrievalRate;
         this.maxTicketCapacity = maxTicketCapacity;
+        // default values for number of vendors and customers
+        this.numOfVendors = 10;
+        this.numOfCustomers = 10;
         serialize();
     }
 
+    /**
+     * Identical constructor as the above, with number of vendors and customers can be set by the user.
+     */
+    public Configuration(int totalTickets, int ticketReleaseRate, int customerRetrievalRate, int maxTicketCapacity, int numOfVendors, int numOfCustomers){
+        this.totalTickets = totalTickets;
+        this.ticketReleaseRate = ticketReleaseRate;
+        this.customerRetrievalRate = customerRetrievalRate;
+        this.maxTicketCapacity = maxTicketCapacity;
+        this.numOfVendors = numOfVendors;
+        this.numOfCustomers = numOfCustomers;
+        serialize();
+    }
 
 
     /**
@@ -54,10 +71,11 @@ public class Configuration {
             writer.close();
 
             writer = new FileWriter(PATH + "TicketConfig.txt");
-            writer.write("Total Tickets: " + this.totalTickets + "\n" + "Ticket Release Rate: " + this.ticketReleaseRate + "\n" + "Customer Retrieval Rate: " +  this.customerRetrievalRate + "\n" + "Maximum Ticket Capacity: " +  this.maxTicketCapacity);
+            String ticketLog = "Total Tickets: " + this.totalTickets  + ", Ticket Release Rate: " + this.ticketReleaseRate  + ", Customer Retrieval Rate: " +  this.customerRetrievalRate  + ", Maximum Ticket Capacity: " +  this.maxTicketCapacity  + ", Number of Vendors: " + this.numOfVendors  + ", Number of Customers: " + this.numOfCustomers;
+            writer.write(ticketLog);
             writer.close();
 
-            logger.log(Level.INFO, "Configuration: Total initial Tickets: " + this.totalTickets + ", Ticket Release Rate: " + this.ticketReleaseRate + ", Customer Retreival Rate: " + this.customerRetrievalRate + ", Maximum Ticket Capacity: "  + this.maxTicketCapacity);
+            logger.log(Level.INFO, ticketLog);
             logger.log(Level.INFO,"Serialized and saved Configuration files as TicketConfig.json & TicketConfig.txt Successfully");
         }catch (IOException e){
             logger.log(Level.SEVERE,"Failed to serialize Configuration.");
@@ -115,6 +133,14 @@ public class Configuration {
 
     public void setMaxTicketCapacity(int maxTicketCapacity) {
         this.maxTicketCapacity = maxTicketCapacity;
+    }
+
+    public int getNumOfVendors() {
+        return numOfVendors;
+    }
+
+    public int getNumOfCustomers() {
+        return numOfCustomers;
     }
 
     @Override
