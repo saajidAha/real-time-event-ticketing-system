@@ -1,13 +1,16 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
+
 
 /**
  * This class is responsible for initializing and simulating multiple vendor and customer threads
  */
 public class Simulator {
+    private Configuration config;
     private TicketPool ticketPool;
     private ArrayList<Thread> vendorThreads;
     private ArrayList<Thread> customerThreads;
@@ -19,6 +22,7 @@ public class Simulator {
     }
 
     public Simulator(Configuration config){
+        this.config = config;
         this.ticketPool = new TicketPool(config);
         this.vendorThreads = new ArrayList<>();
         this.customerThreads = new ArrayList<>();
@@ -27,42 +31,44 @@ public class Simulator {
 
     /**
      * Simulates multithreaded environment where multiple customers and vendors interact with the ticket pool
-     * @param numOfVendors The number of vendors that are going to be releasing tickets
-     * @param numOfCustomers The number of customers that are going to purchase tickets
      */
-    public void simulate(int numOfVendors, int numOfCustomers){
-        for (int i=1; i<=numOfVendors; i++){
+    public void simulate(){
+        for (int i=1; i<=config.getNumOfVendors(); i++){
             String name = "Vendor_#" + i;
             Runnable vendor = new Vendor(this.ticketPool);
             Thread vendorThread = new Thread(vendor, name );
+            vendorThread.start();
+
             vendorThreads.add(vendorThread);
             allThreads.add(vendorThread);
-            vendorThread.start();
         }
 
-        for (int i=1; i<=numOfCustomers; i++){
+        for (int i=1; i<=config.getNumOfCustomers(); i++){
             String name = "Customer_#" + i;
             Runnable customer = new Customer(this.ticketPool);
             Thread customerThread = new Thread(customer, name );
+            customerThread.start();
 
             customerThreads.add(customerThread);
             allThreads.add(customerThread);
-            customerThread.start();
         }
 
         // makes all the threads to complete first before continuing to execute the rest of the code in the main method;
-        for (Thread eachThread: allThreads){
+        for (Thread thread : allThreads){
             try {
-                eachThread.join();
+                thread.join();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                logger.log(Level.SEVERE,"issue while joining");
+                logInfo(logger, "issue while joining", "SEVERE");
             }
         }
 
-        logger.log(Level.INFO,"Simulation execution completed successfully.");
-
+        logInfo(logger,"Simulation execution completed successfully", "INFO");
+        System.out.println(LoggerHandler.getLogs());
 
     }
 
+    public TicketPool getTicketPool() {
+        return ticketPool;
+    }
 }
