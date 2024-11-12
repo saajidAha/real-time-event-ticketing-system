@@ -53,5 +53,10 @@ public class LoggerHandler {
         return logs;
     }
 
+    public static void clearLogs(){
+        logInfo(logger, "Cleared previous logs successfully", "INFO");
+        logs.clear();
+    }
+
 
 }
