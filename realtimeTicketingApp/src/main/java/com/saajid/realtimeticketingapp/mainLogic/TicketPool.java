@@ -1,13 +1,11 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
-import java.util.ArrayList;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
 import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
 
@@ -17,20 +15,12 @@ import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
 public class TicketPool {
     private Configuration config;
     private Vector<Ticket> tickets;
-//    private static ArrayList<String> logs = new ArrayList<>(); // this will store the logs to display to the frontend;
-
-    private static Logger logger = Logger.getLogger(TicketPool.class.getName());
     private Lock lock;
-
 //    Custom conditions for locks
     private Condition canConsume;
     private Condition canProduce;
 
-//    boolean to control indefinite wait situations (e.g when customers are waiting and no tickets get released)
-    private volatile boolean isProgramComplete;
-
-//   timeout to exit indefinite wait
-    private int timeout;
+    private static Logger logger = Logger.getLogger(TicketPool.class.getName());
 
     // static initializer
     static{
@@ -49,8 +39,6 @@ public class TicketPool {
         this.lock = new ReentrantLock();
         this.canConsume = this.lock.newCondition();
         this.canProduce = this.lock.newCondition();
-        this.timeout = 3000;
-//        this.logs = new ArrayList<>();
         init();
     }
 
@@ -71,37 +59,18 @@ public class TicketPool {
      * @param ticket The ticket that will be added to the vector
      */
     public void addTicket(Ticket ticket){
-        if (this.isProgramComplete){return;}
         this.lock.lock();
-        // wait if the ticket array is full
         try {
-            while (this.tickets.size() == this.config.getMaxTicketCapacity()) {
-//                check if a signal is recieved from a producer else terminate;
-                boolean signalReceived = this.canProduce.await(this.timeout, TimeUnit.MILLISECONDS);
-                if (!signalReceived) {
-                    logInfo(logger,Thread.currentThread().getName() + " Thread terminated due to no customer attempting to buy after a timeout of " + this.timeout + " milliseconds","WARNING");
-                    this.isProgramComplete = true;
-                    return;
-                }
-
+            while (this.tickets.size() >= this.config.getMaxTicketCapacity()) {
+                this.canProduce.await(); // wait if the ticket array is full
             }
-//            if (this.isProgramComplete){return;}
-
-            // add ticket if the ticket array is not full
-            if (this.tickets.size() < this.config.getMaxTicketCapacity()) {
-                this.tickets.add(ticket);
-                logInfo(logger,Thread.currentThread().getName() + " issued ticket: [Ticket ID:  " + ticket.getTicketID() + "]", "INFO");
-
-                // sleep after adding ticket
-                Thread.sleep(config.getTicketReleaseRate());
-                this.canConsume.signalAll();
-            }
+            this.tickets.add(ticket); // add ticket if the ticket array is not full
+            logInfo(logger,Thread.currentThread().getName() + " issued ticket: [Ticket ID:  " + ticket.getTicketID() + "]", "INFO");
+            this.canConsume.signalAll(); // notify all waiting customers
         } catch (InterruptedException e){
             logInfo(logger,"Thread has been interrupted", "SEVERE");
-
         } finally {
-            // release lock and notify all waiting customers after task is complete
-            this.lock.unlock();
+            this.lock.unlock(); // release lock and notify all waiting customers after task is complete
         }
     }
 
@@ -110,32 +79,22 @@ public class TicketPool {
      * Logs info to the console
      */
     public void removeTicket() {
-        if (this.isProgramComplete) return;
         this.lock.lock();
         try {
-            // wait if the ticket array is empty
             while (this.tickets.isEmpty()) {
-                boolean signalReceived = this.canConsume.await(timeout, TimeUnit.MILLISECONDS);
-                if (!signalReceived) {
-                    logInfo(logger,Thread.currentThread().getName() + " Thread terminated due to no Vendor releasing tickets after a timeout of " + this.timeout + " milliseconds", "WARNING");
-                    this.isProgramComplete = true; // mark program complete if wait times out
-                    return;
-                }
+                this.canConsume.await(); // wait if the ticket array is empty
             }
-//            if (isProgramComplete) return;
-
-            // Remove the ticket if ticket array is not empty
-            Ticket removedTicket = this.tickets.removeFirst();
+            Ticket removedTicket = this.tickets.removeFirst(); // Remove the ticket if ticket array is not empty
             logInfo(logger,Thread.currentThread().getName() + " purchased ticket: [Ticket ID: " + removedTicket.getTicketID() + "]", "INFO");
-
-            // Sleep after removing the ticket
-            Thread.sleep(config.getCustomerRetrievalRate());
-            this.canProduce.signalAll(); // Notify waiting producers
-
+            this.canProduce.signalAll(); // Notify all waiting producers
         } catch (InterruptedException e) {
             logInfo(logger,"Thread has been interrupted", "SEVERE");
         } finally {
             this.lock.unlock();
         }
+    }
+
+    public Configuration getConfig() {
+        return config;
     }
 }
