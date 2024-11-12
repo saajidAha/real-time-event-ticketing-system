@@ -6,14 +6,12 @@ package com.saajid.realtimeticketingapp.mainLogic;
 public class Customer implements Runnable{
     private TicketPool ticketPool;
 
-    public Customer(TicketPool ticketPool){
+    public Customer(TicketPool ticketPool) {
         this.ticketPool = ticketPool;
     }
-
     // each customer purchases a single ticket
     @Override
     public void run(){
-        ticketPool.removeTicket();
+        this.ticketPool.removeTicket();
     }
-
 }
