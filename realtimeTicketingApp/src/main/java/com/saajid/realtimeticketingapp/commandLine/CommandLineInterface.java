@@ -3,6 +3,7 @@ package com.saajid.realtimeticketingapp.commandLine;
 import com.saajid.realtimeticketingapp.mainLogic.Configuration;
 import com.saajid.realtimeticketingapp.mainLogic.LoggerHandler;
 import com.saajid.realtimeticketingapp.mainLogic.Simulator;
+import com.saajid.realtimeticketingapp.server.TicketController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,11 @@ import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
  */
 @Component
 public class CommandLineInterface implements CommandLineRunner {
+
+    private static Logger logger = Logger.getLogger(CommandLineInterface.class.getName());
+    static{
+        logger.addHandler(LoggerHandler.getFileHandler());
+    }
 
     @Override
     public void run(String... args) throws Exception {
@@ -35,9 +41,6 @@ public class CommandLineInterface implements CommandLineRunner {
         Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
         config.serialize();
 
-//        add the handler for the logger
-        Logger logger = Logger.getLogger(CommandLineInterface.class.getName());
-        logger.addHandler( LoggerHandler.getFileHandler() );
         // Start / Stop system
         if ( validateYesNo() ){
             Simulator simulator = new Simulator(config);
