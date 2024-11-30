@@ -22,10 +22,9 @@ public class CommandLineInterface {
     }
 
     /**
-     * Initializes the command line interface
+     * Initializes & starts the command line interface
      */
-    public static void initCLI() {
-
+    public static void init() {
         System.out.println(getWelcomeMsg());
 
         // Prompt user for configuration

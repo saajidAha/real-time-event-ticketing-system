@@ -57,8 +57,8 @@ public class TicketService {
     }
 
     /**
-     * 
-     * @return
+     * Gets the list of tickets in current ticketpool
+     * @return An array of tickets
      */
     public Vector<Ticket> getTicketsList(){
         return ticketPool.getTickets();
