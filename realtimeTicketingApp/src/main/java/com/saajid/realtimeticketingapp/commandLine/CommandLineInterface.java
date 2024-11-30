@@ -46,7 +46,7 @@ public class CommandLineInterface {
         config.serialize();
 
         // Start / Stop simulation
-        if ( validateYesNo("Do you want to run the simulation?") ){
+        if ( checkYesNoResponse("Do you want to run the simulation?") ){
             Simulator simulator = new Simulator(config);
             logInfo(logger, "Simulation Request recieved from the CLI started successfully", "INFO");
             simulator.simulate(); // Run simulation
@@ -82,10 +82,10 @@ public class CommandLineInterface {
     }
 
     /**
-     * Validates user input to start / stop system
+     * Validates user input for the binary choices of 'yes' or 'no'
      * @return True if response is "yes", false if "no"
      */
-    public static boolean validateYesNo(String prompt){
+    public static boolean checkYesNoResponse(String prompt){
         boolean startSystem = false;
         boolean validated = false;
 
