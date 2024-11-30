@@ -29,17 +29,17 @@ public class CommandLineInterface {
         System.out.println(getWelcomeMsg());
 
         // Prompt user for configuration
-        int totalTickets = validatePositiveInt("Enter the total number of initial tickets");
-        int ticketReleaseRate = validatePositiveInt("Enter the ticket release rate (in milliseconds)");
-        int customerRetrievalRate = validatePositiveInt("Enter the customer retrieval rate (in milliseconds)");
+        int totalTickets = validateNum("Enter the total number of initial tickets", 0);
+        int ticketReleaseRate = validateNum("Enter the ticket release rate (in milliseconds)", 0);
+        int customerRetrievalRate = validateNum("Enter the customer retrieval rate (in milliseconds)", 0);
 
-        int maxTicketCapacity = validatePositiveInt("Enter the maximum ticket capacity");
+        int maxTicketCapacity = validateNum("Enter the maximum ticket capacity", 1);
         while (maxTicketCapacity < totalTickets) {
             System.out.println("Maximum ticket capacity cannot be less than the initial total tickets. please try again.");
-            maxTicketCapacity = validatePositiveInt("Enter the maximum ticket capacity");
+            maxTicketCapacity = validateNum("Enter the maximum ticket capacity", 1);
         }
-        int numOfVendors = validatePositiveInt("Enter the number of vendors");
-        int numOfCustomers = validatePositiveInt("Enter the number of customers");
+        int numOfVendors = validateNum("Enter the number of vendors", 1);
+        int numOfCustomers = validateNum("Enter the number of customers", 1);
 
         // Create config object
         Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity, numOfVendors, numOfCustomers);
@@ -56,29 +56,29 @@ public class CommandLineInterface {
     }
 
     /**
-     * Validates user inputs
+     * Validates user inputs to check if it is greater the given number
      * @param prompt The prompt message to be displayed to the user
-     * @return A positive integer
+     * @return An integer greater than the specified minimum number
      */
-    public static int validatePositiveInt(String prompt){
-        int response = 0;
-        boolean isValidated = false;
+    public static int validateNum(String prompt, int minNum){
+        int userNum = 0;
+        boolean validated = false;
 
-        while (!isValidated){
+        while (!validated){
             try {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println(prompt + ":   ");
-                response = scanner.nextInt();
-                if (response > 0){
-                    isValidated = true;
+                userNum = scanner.nextInt();
+                if (userNum >= minNum){
+                    validated = true;
                 }else{
-                    System.out.println("Input should be a positive integer.");
+                    System.out.println("Input should be a greater than or equal to " + minNum);
                 }
             } catch (Exception e){
                 System.out.println("Invalid input please try again.");
             }
         }
-        return response;
+        return userNum;
     }
 
     /**
