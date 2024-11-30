@@ -3,9 +3,6 @@ package com.saajid.realtimeticketingapp.commandLine;
 import com.saajid.realtimeticketingapp.mainLogic.Configuration;
 import com.saajid.realtimeticketingapp.mainLogic.LoggerHandler;
 import com.saajid.realtimeticketingapp.mainLogic.Simulator;
-import com.saajid.realtimeticketingapp.server.TicketController;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -13,18 +10,23 @@ import java.util.logging.Logger;
 import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
 
 /**
- * This class will have the logic to implement the main CLI functionality
+ * Utility class containing the logic to implement the core java CLI functionality
  */
-@Component
-public class CommandLineInterface implements CommandLineRunner {
+public class CommandLineInterface {
 
+//    initialize logger
     private static Logger logger = Logger.getLogger(CommandLineInterface.class.getName());
+
     static{
         logger.addHandler(LoggerHandler.getFileHandler());
     }
 
-    @Override
-    public void run(String... args) throws Exception {
+    /**
+     * Initializes the command line interface
+     */
+    public static void initCLI() {
+
+        System.out.println(getWelcomeMsg());
 
         // Prompt user for configuration
         int totalTickets = validatePositiveInt("Enter the total number of initial tickets");
@@ -36,20 +38,18 @@ public class CommandLineInterface implements CommandLineRunner {
             System.out.println("Maximum ticket capacity cannot be less than the initial total tickets. please try again.");
             maxTicketCapacity = validatePositiveInt("Enter the maximum ticket capacity");
         }
-        int numOfVendors = validatePositiveInt("Enter the number of vendors: ");
-        int numOfCustomers = validatePositiveInt("Enter the number of customers: ");
+        int numOfVendors = validatePositiveInt("Enter the number of vendors");
+        int numOfCustomers = validatePositiveInt("Enter the number of customers");
 
         // Create config object
         Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity, numOfVendors, numOfCustomers);
         config.serialize();
 
-        // Start / Stop system
-        if ( validateYesNo() ){
+        // Start / Stop simulation
+        if ( validateYesNo("Do you want to run the simulation?") ){
             Simulator simulator = new Simulator(config);
             logInfo(logger, "Simulation Request recieved from the CLI started successfully", "INFO");
-
-            // Run simulation
-            simulator.simulate();
+            simulator.simulate(); // Run simulation
         } else{
             logInfo(logger, "System stopped as per requested.", "INFO");
         }
@@ -60,7 +60,7 @@ public class CommandLineInterface implements CommandLineRunner {
      * @param prompt The prompt message to be displayed to the user
      * @return A positive integer
      */
-    private static int validatePositiveInt(String prompt){
+    public static int validatePositiveInt(String prompt){
         int response = 0;
         boolean isValidated = false;
 
@@ -85,14 +85,14 @@ public class CommandLineInterface implements CommandLineRunner {
      * Validates user input to start / stop system
      * @return True if response is "yes", false if "no"
      */
-    private static boolean validateYesNo(){
+    public static boolean validateYesNo(String prompt){
         boolean startSystem = false;
         boolean validated = false;
 
         while (!validated){
             try{
                 Scanner scanner = new Scanner(System.in);
-                System.out.println("Do you want to start the system? Enter (Yes / No): ");
+                System.out.println(prompt + " Enter (Yes / No): ");
                 String response = scanner.nextLine();
                 if (response.equalsIgnoreCase("yes")){
                     validated = true;
@@ -107,6 +107,21 @@ public class CommandLineInterface implements CommandLineRunner {
             }
         }
         return startSystem;
+    }
+
+    /**
+     * Method to display fancy welcome message
+     * @return A fancy welcome message for the CLI
+     */
+    private static String getWelcomeMsg(){
+        return
+                "\n" +
+                        "▀▀█▀▀ ▀█▀ ░█▀▀█ ░█─▄▀ ░█▀▀▀ ▀▀█▀▀ ▀█▀ ░█▄─░█ ░█▀▀█ 　 ░█▀▀█ ░█▀▀▀█ ░█▀▄▀█ ░█▀▄▀█ ─█▀▀█ ░█▄─░█ ░█▀▀▄ 　 ░█─── ▀█▀ ░█▄─░█ ░█▀▀▀ \n" +
+                        "─░█── ░█─ ░█─── ░█▀▄─ ░█▀▀▀ ─░█── ░█─ ░█░█░█ ░█─▄▄ 　 ░█─── ░█──░█ ░█░█░█ ░█░█░█ ░█▄▄█ ░█░█░█ ░█─░█ 　 ░█─── ░█─ ░█░█░█ ░█▀▀▀ \n" +
+                        "─░█── ▄█▄ ░█▄▄█ ░█─░█ ░█▄▄▄ ─░█── ▄█▄ ░█──▀█ ░█▄▄█ 　 ░█▄▄█ ░█▄▄▄█ ░█──░█ ░█──░█ ░█─░█ ░█──▀█ ░█▄▄▀ 　 ░█▄▄█ ▄█▄ ░█──▀█ ░█▄▄▄"
+                +
+                        "\n\n✨✨✨ Welcome to the Real-Time Event Ticketing System ⚡ Command Line Interface! ⚡ ✨✨✨\n"
+                ;
     }
 
 }
