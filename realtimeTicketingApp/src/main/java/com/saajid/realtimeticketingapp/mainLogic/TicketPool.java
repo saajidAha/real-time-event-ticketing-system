@@ -1,5 +1,6 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
+import java.util.NoSuchElementException;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -20,6 +21,9 @@ public class TicketPool {
     private Condition canConsume;
     private Condition canProduce;
 
+    public static volatile boolean customerThreadCanRun;
+    public static volatile boolean vendorThreadCanRun;
+
     private static Logger logger = Logger.getLogger(TicketPool.class.getName());
 
     // static initializer
@@ -29,24 +33,26 @@ public class TicketPool {
     }
 
     /**
-     * Initializes the vector with specified initial number of tickets
-     * Logs info to the console
+     * Initializes the TicketPool based on the configuration
      * @param config Configuration object used to extract configuration parameters by the user
      */
     public TicketPool(Configuration config){
-        this.tickets = new Vector<>();
         this.config = config;
+        this.tickets = new Vector<>();
         this.lock = new ReentrantLock();
         this.canConsume = this.lock.newCondition();
         this.canProduce = this.lock.newCondition();
-        init();
+        fillTicketPool();
+
+//        whenever a ticket pool is created. the default is customer and vendor threads can run
+        customerThreadCanRun = true;
+        vendorThreadCanRun = true;
     }
 
     /**
-     * Runs this code immediately after initialzation of the constructor
+     * Fill the ticket array with the specified number of totaltickets;
      */
-    public void init(){
-        // fill the ticket array with the specified number of tickets.
+    public void fillTicketPool(){
             for (int i=0; i < this.config.getTotalTickets(); i++) {
                 this.tickets.add(new Ticket());
             }
@@ -62,13 +68,16 @@ public class TicketPool {
         this.lock.lock();
         try {
             while (this.tickets.size() >= this.config.getMaxTicketCapacity()) {
-                this.canProduce.await(); // wait if the ticket array is full
+                vendorThreadCanRun = this.canProduce.await(config.getTicketReleaseRate() + 200, TimeUnit.MILLISECONDS); // wait if the ticket array is full
+                if (!vendorThreadCanRun){
+                    Thread.currentThread().interrupt();
+                }
             }
             this.tickets.add(ticket); // add ticket if the ticket array is not full
             logInfo(logger,Thread.currentThread().getName() + " issued ticket: [Ticket ID:  " + ticket.getTicketID() + "]", "INFO");
             this.canConsume.signalAll(); // notify all waiting customers
         } catch (InterruptedException e){
-            logInfo(logger,"Thread has been interrupted", "SEVERE");
+            logInfo(logger, Thread.currentThread().getName() + " thread has been terminated due to no customers attempting to buy from the pool, & the ticketpool is filled to the max capacity.", "INFO");
         } finally {
             this.lock.unlock(); // release lock and notify all waiting customers after task is complete
         }
@@ -82,14 +91,20 @@ public class TicketPool {
         this.lock.lock();
         try {
             while (this.tickets.isEmpty()) {
-                this.canConsume.await(); // wait if the ticket array is empty
+                customerThreadCanRun = this.canConsume.await(config.getCustomerRetrievalRate() + 200, TimeUnit.MILLISECONDS); // wait if the ticket array is empty
+                if (!customerThreadCanRun){
+                    Thread.currentThread().interrupt();
+                }
             }
             Ticket removedTicket = this.tickets.removeFirst(); // Remove the ticket if ticket array is not empty
             logInfo(logger,Thread.currentThread().getName() + " purchased ticket: [Ticket ID: " + removedTicket.getTicketID() + "]", "INFO");
             this.canProduce.signalAll(); // Notify all waiting producers
         } catch (InterruptedException e) {
-            logInfo(logger,"Thread has been interrupted", "SEVERE");
-        } finally {
+            logInfo(logger, Thread.currentThread().getName() + " thread has been terminated due to no vendors releasing tickets & ticket pool being empty. ", "INFO");
+        } catch (NoSuchElementException n){
+            System.out.println("No tickets in the ticket pool");
+        }
+        finally {
             this.lock.unlock();
         }
     }
@@ -97,4 +112,9 @@ public class TicketPool {
     public Configuration getConfig() {
         return config;
     }
+
+    public Vector<Ticket> getTickets(){
+        return this.tickets;
+    }
+
 }
