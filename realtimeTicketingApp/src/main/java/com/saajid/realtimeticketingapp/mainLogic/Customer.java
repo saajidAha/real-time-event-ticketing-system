@@ -12,6 +12,8 @@ public class Customer implements Runnable{
     // each customer purchases a single ticket
     @Override
     public void run(){
-        this.ticketPool.removeTicket();
+        if (TicketPool.customerThreadCanRun){
+            this.ticketPool.removeTicket();
+        }
     }
 }
