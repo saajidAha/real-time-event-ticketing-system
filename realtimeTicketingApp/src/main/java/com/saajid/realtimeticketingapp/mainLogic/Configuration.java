@@ -36,24 +36,13 @@ public class Configuration {
     }
 
     /**
-     * Constructor with default values for number of vendores and customers
-     * @param totalTickets Sets the total tickets in the ticket pool
-     * @param ticketReleaseRate Sets the frequency tickets are released by vendors
-     * @param customerRetrievalRate Sets the frequency tickets are purchased by customers
-     * @param maxTicketCapacity Sets the maximum number of tickets in the ticket pool
-     */
-    public Configuration(int totalTickets, int ticketReleaseRate, int customerRetrievalRate, int maxTicketCapacity){
-        this.totalTickets = totalTickets;
-        this.ticketReleaseRate = ticketReleaseRate;
-        this.customerRetrievalRate = customerRetrievalRate;
-        this.maxTicketCapacity = maxTicketCapacity;
-        // default values for number of vendors and customers
-        this.numOfVendors = 10;
-        this.numOfCustomers = 10;
-    }
-
-    /**
-     * Identical constructor as the above, with number of vendors and customers can be set by the user.
+     * Constructor to initialize the Configuration
+     * @param totalTickets Total tickets in the ticket pool
+     * @param ticketReleaseRate Frequency of tickets released by vendors (milliseconds)
+     * @param customerRetrievalRate Frequency of tickets purchased by customers (milliseconds)
+     * @param maxTicketCapacity Maximum number of tickets in the ticket pool
+     * @param numOfVendors Number of vendors releasing tickets in the simulation
+     * @param numOfCustomers Number of customers purchasing in the simulation
      */
     public Configuration(int totalTickets, int ticketReleaseRate, int customerRetrievalRate, int maxTicketCapacity, int numOfVendors, int numOfCustomers){
         this.totalTickets = totalTickets;
@@ -62,6 +51,16 @@ public class Configuration {
         this.maxTicketCapacity = maxTicketCapacity;
         this.numOfVendors = numOfVendors;
         this.numOfCustomers = numOfCustomers;
+    }
+
+    /**
+     * Constructor to initialize configuration
+     * @param totalTickets Total tickets in the ticket pool
+     * @param maxTicketCapacity Maximum number of tickets in the ticket pool
+     */
+    public Configuration(int totalTickets, int maxTicketCapacity){
+        this.totalTickets = totalTickets;
+        this.maxTicketCapacity = maxTicketCapacity;
     }
 
 
