@@ -36,9 +36,11 @@ public class CommandLineInterface implements CommandLineRunner {
             System.out.println("Maximum ticket capacity cannot be less than the initial total tickets. please try again.");
             maxTicketCapacity = validatePositiveInt("Enter the maximum ticket capacity");
         }
+        int numOfVendors = validatePositiveInt("Enter the number of vendors: ");
+        int numOfCustomers = validatePositiveInt("Enter the number of customers: ");
 
         // Create config object
-        Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
+        Configuration config = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity, numOfVendors, numOfCustomers);
         config.serialize();
 
         // Start / Stop system
