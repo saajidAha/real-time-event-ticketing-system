@@ -13,4 +13,9 @@ import java.util.UUID; // required for random id generation
 public class Ticket {
     // Generate a random ID with 8 characters
     private String ticketID = UUID.randomUUID().toString().substring(0,8);
+
+    @Override
+    public String toString() {
+        return ticketID;
+    }
 }
