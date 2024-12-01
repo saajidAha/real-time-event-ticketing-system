@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ * Class responsible for proccessing requests received by the TicketController API
+ */
 @Service
 public class TicketService {
     /**
@@ -19,18 +22,6 @@ public class TicketService {
      */
     public ArrayList<String> getLogs(){
         return LoggerHandler.getLogs();
-    }
-
-    /**
-     * Runs simulation based on the configuration
-     * @param config Configuration object
-     */
-    public void simulate(Configuration config){
-        LoggerHandler.clearLogs();
-        config.serialize();
-        Simulator simulator = new Simulator(config);
-        simulator.simulate();
-        ticketPool = simulator.getTicketPool();
     }
 
     /**
@@ -62,5 +53,17 @@ public class TicketService {
      */
     public Vector<Ticket> getTicketsList(){
         return ticketPool.getTickets();
+    }
+
+    /**
+     * Runs simulation based on the configuration
+     * @param config Configuration object
+     */
+    public void simulate(Configuration config){
+        LoggerHandler.clearLogs();
+        config.serialize();
+        Simulator simulator = new Simulator(config);
+        simulator.simulate();
+        ticketPool = simulator.getTicketPool();
     }
 }
