@@ -1,11 +1,15 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
+import com.saajid.realtimeticketingapp.commandLine.CommandLineInterface;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
+import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
+
 
 /**
  * Class to start the react server
@@ -16,6 +20,12 @@ public class ReactServerInitializer {
 
     private Process reactProcess;
 
+    private static Logger logger = Logger.getLogger(CommandLineInterface.class.getName());
+
+    static{
+        logger.addHandler(LoggerHandler.getFileHandler());
+    }
+
     @PostConstruct
     public void startReactServer() {
         ProcessBuilder processBuilder = new ProcessBuilder();
@@ -24,9 +34,9 @@ public class ReactServerInitializer {
 
         try {
             reactProcess = processBuilder.start();
-            System.out.println("React server started successfully.");
+            logInfo(logger,"React server started successfully.", "Info");
         } catch (IOException e) {
-            System.err.println("Failed to start React server: " + e.getMessage());
+            logInfo(logger,"Failed to start React server: " + e.getMessage(), "Severe");
         }
     }
 
@@ -36,11 +46,11 @@ public class ReactServerInitializer {
     @PreDestroy
     public void stopReactServer() {
         if (reactProcess != null) {
-            System.out.println("Stopping React server...");
+            logInfo(logger,"Stopping React server...", "Info");
             // Destroy forcibly
             reactProcess.descendants().forEach(ProcessHandle::destroy); // Kill child processes
             reactProcess.destroy();
-            System.out.println("React server stopped.");
+            logInfo(logger,"React server stopped.", "Info");
         }
     }
 }
