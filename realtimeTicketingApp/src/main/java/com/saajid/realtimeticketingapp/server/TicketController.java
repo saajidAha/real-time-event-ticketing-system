@@ -3,10 +3,11 @@ package com.saajid.realtimeticketingapp.server;
 import com.saajid.realtimeticketingapp.mainLogic.Configuration;
 import com.saajid.realtimeticketingapp.mainLogic.LoggerHandler;
 import com.saajid.realtimeticketingapp.mainLogic.Ticket;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
@@ -14,21 +15,15 @@ import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
 /**
  * Class (API) responsible for handling HTTP requests from the front-end
  */
+@RequiredArgsConstructor
 @RestController
 @CrossOrigin(origins = "http://localhost:3000") // Allow requests from React dev server
 @RequestMapping("/")
 public class TicketController {
 
-    private TicketService ticketService;
-    private static Logger logger = Logger.getLogger(TicketController.class.getName());
+    private final TicketService ticketService;// automatic dependency injection by @RequiredArgsConstructor
 
-    /**
-     * Constructor injection Spring initalized bean of ticketservice class
-     * @param ticketService Class responsible for proccessing the logic based on request
-     */
-    public TicketController(TicketService ticketService){
-        this.ticketService = ticketService;
-    }
+    private static Logger logger = Logger.getLogger(TicketController.class.getName());
 
     static{
         logger.addHandler(LoggerHandler.getFileHandler());
@@ -74,7 +69,7 @@ public class TicketController {
      * @return An array of tickets
      */
     @GetMapping("/tickets")
-    public Vector<Ticket> getTicketsList(){
+    public List<Ticket> getTicketsList(){
         return this.ticketService.getTicketsList();
     }
 
