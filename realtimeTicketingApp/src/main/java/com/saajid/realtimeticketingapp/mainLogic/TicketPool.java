@@ -43,7 +43,6 @@ public class TicketPool {
         this.canConsume = this.lock.newCondition();
         this.canProduce = this.lock.newCondition();
         fillTicketPool();
-
 //        whenever a ticket pool is created. the default is customer and vendor threads can run
         customerThreadCanRun = true;
         vendorThreadCanRun = true;
@@ -67,8 +66,13 @@ public class TicketPool {
     public void addTicket(Ticket ticket){
         this.lock.lock();
         try {
+            // wait if the ticket array is full and wait until customer purchases
             while (this.tickets.size() >= this.config.getMaxTicketCapacity()) {
-                vendorThreadCanRun = this.canProduce.await(config.getTicketReleaseRate() + 200, TimeUnit.MILLISECONDS); // wait if the ticket array is full
+                // check if signal is received by the customer with a timeout
+                // set the boolean flag to false if no response is received, to avoid an indefinite wait with deadlock.
+                // timeout logic : if the time exceeds the interval in which customers purchase, that means no more customer threads will run and purchase tickets.
+                vendorThreadCanRun = this.canProduce.await(config.getCustomerRetrievalRate() + 200, TimeUnit.MILLISECONDS);
+                // If no signal was received, terminate the thread.
                 if (!vendorThreadCanRun){
                     Thread.currentThread().interrupt();
                 }
@@ -90,8 +94,13 @@ public class TicketPool {
     public void removeTicket() {
         this.lock.lock();
         try {
+            // wait while the ticket array is empty
             while (this.tickets.isEmpty()) {
-                customerThreadCanRun = this.canConsume.await(config.getCustomerRetrievalRate() + 200, TimeUnit.MILLISECONDS); // wait if the ticket array is empty
+                // check if signal is received by the vendor with a timeout
+                // set the boolean flag to false if no response is received, to avoid an indefinite wait with deadlock.
+                // timeout logic : if the time exceeds the interval in which vendors release, that means no more vendors threads will run & release tickets.
+                customerThreadCanRun = this.canConsume.await(config.getTicketReleaseRate() + 200, TimeUnit.MILLISECONDS);
+                // if no signal was recieved terminate the thread
                 if (!customerThreadCanRun){
                     Thread.currentThread().interrupt();
                 }
