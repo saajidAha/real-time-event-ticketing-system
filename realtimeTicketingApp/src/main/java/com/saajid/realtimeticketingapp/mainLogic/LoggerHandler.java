@@ -1,5 +1,8 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
+import lombok.Data;
+import lombok.Getter;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.FileHandler;
@@ -10,9 +13,12 @@ import java.util.logging.SimpleFormatter;
 /**
  * This class is solely for the purpose of creating a single FileHandler and using it across the program.
  */
+@Data // auto generate getters & setters
 public class LoggerHandler {
     private static Logger logger = Logger.getLogger(LoggerHandler.class.getName());
+    @Getter
     private static FileHandler fileHandler;
+    @Getter
     private static ArrayList<String> logs = new ArrayList<>(); // this will store the logs to display to the frontend;
 
 //    Runs this code only ONCE when the program is run. because we need only one filehandler for all the classes;
@@ -24,13 +30,6 @@ public class LoggerHandler {
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error occured while creation of logger");
         }
-    }
-
-    /**
-     * @return a single FileHandler
-     */
-    public static FileHandler getFileHandler(){
-        return fileHandler;
     }
 
     /**
@@ -47,10 +46,6 @@ public class LoggerHandler {
             logger.log(Level.SEVERE, message);
         }
         logs.add(message);
-    }
-
-    public static ArrayList<String> getLogs() {
-        return logs;
     }
 
     public static void clearLogs(){

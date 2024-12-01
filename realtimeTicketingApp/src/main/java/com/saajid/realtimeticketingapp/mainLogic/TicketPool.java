@@ -1,5 +1,7 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
+import lombok.Data;
+
 import java.util.NoSuchElementException;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -13,9 +15,11 @@ import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
 /**
  * This class is the shared resource that going to be accessed by the Vendors and Customers
  */
+@Data // auto generate getters & setters
 public class TicketPool {
     private Configuration config;
     private Vector<Ticket> tickets;
+    private Transaction transaction;
     private Lock lock;
 //    Custom conditions for locks
     private Condition canConsume;
@@ -78,6 +82,7 @@ public class TicketPool {
                 }
             }
             this.tickets.add(ticket); // add ticket if the ticket array is not full
+
             logInfo(logger,Thread.currentThread().getName() + " issued ticket: [Ticket ID:  " + ticket.getTicketID() + "]", "INFO");
             this.canConsume.signalAll(); // notify all waiting customers
         } catch (InterruptedException e){
@@ -117,13 +122,4 @@ public class TicketPool {
             this.lock.unlock();
         }
     }
-
-    public Configuration getConfig() {
-        return config;
-    }
-
-    public Vector<Ticket> getTickets(){
-        return this.tickets;
-    }
-
 }

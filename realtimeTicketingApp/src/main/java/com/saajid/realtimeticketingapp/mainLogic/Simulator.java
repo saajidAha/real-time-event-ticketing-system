@@ -1,5 +1,7 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
+import lombok.Data;
+
 import java.util.logging.Logger;
 
 import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
@@ -7,6 +9,7 @@ import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
 /**
  * This class is responsible for initializing and simulating multiple vendor and customer threads
  */
+@Data // auto generate getters & setters
 public class Simulator {
     private TicketPool ticketPool;
     private static Logger logger = Logger.getLogger(Simulator.class.getName());
@@ -41,9 +44,5 @@ public class Simulator {
         logInfo(logger,"Simulation execution completed successfully", "INFO");
         System.out.println(LoggerHandler.getLogs());
 
-    }
-
-    public TicketPool getTicketPool() {
-        return ticketPool;
     }
 }
