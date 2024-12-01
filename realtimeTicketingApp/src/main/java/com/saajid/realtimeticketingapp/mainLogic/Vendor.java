@@ -3,17 +3,16 @@ package com.saajid.realtimeticketingapp.mainLogic;
 import lombok.AllArgsConstructor;
 
 /**
- * This class represents the Vendor threads
+ * This class represents the Individual Vendor thread logic
  */
 @AllArgsConstructor
 public class Vendor implements Runnable{
     private TicketPool ticketPool;
 
-//    each vendor releases a single ticket
     @Override
     public void run(){
         if(ticketPool.vendorThreadCanRun){
-            this.ticketPool.addTicket( new Ticket() );
+            this.ticketPool.addTicket( new Ticket() ); // each vendor releases a single ticket
         }
     }
 }

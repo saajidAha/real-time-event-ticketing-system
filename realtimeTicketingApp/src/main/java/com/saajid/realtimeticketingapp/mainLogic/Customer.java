@@ -3,17 +3,16 @@ package com.saajid.realtimeticketingapp.mainLogic;
 import lombok.AllArgsConstructor;
 
 /**
- * This class represents the Customer threads
+ * This class represents the Individual Customer thread logic
  */
 @AllArgsConstructor
 public class Customer implements Runnable{
     private TicketPool ticketPool;
 
-    // each customer purchases a single ticket
     @Override
     public void run(){
         if (ticketPool.customerThreadCanRun){
-            this.ticketPool.removeTicket();
+            this.ticketPool.removeTicket(); // each customer purchases a single ticket
         }
     }
 }

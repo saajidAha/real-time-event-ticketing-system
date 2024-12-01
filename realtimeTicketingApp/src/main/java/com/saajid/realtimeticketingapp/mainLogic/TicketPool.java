@@ -1,8 +1,6 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
-import jakarta.annotation.PostConstruct;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
