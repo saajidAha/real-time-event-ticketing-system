@@ -18,6 +18,10 @@ public class Simulator {
         logger.addHandler(LoggerHandler.getFileHandler());
     }
 
+    /**
+     * Initalizes ticketpool with configuration
+     * @param config Configuration object
+     */
     public Simulator(Configuration config){
         this.ticketPool = new TicketPool(config);
     }
@@ -34,7 +38,7 @@ public class Simulator {
         customerRunner.start();
         vendorRunner.start();
 
-        // make sure that all customer & vendor threads are executed before moving to the next lines of code
+        // makes sure that all customer & vendor threads are executed before moving to the next lines of code
         try {
             customerRunner.join();
             vendorRunner.join();
