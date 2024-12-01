@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,19 +17,19 @@ import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
  * This class is responsible for the configuration of how the user wants to simulate the ticketing system
  */
 @Data
-@NoArgsConstructor // Default constructor for Jackson deserialization
-@AllArgsConstructor
+@NoArgsConstructor (force = true)// Default constructor for Jackson deserialization
+@AllArgsConstructor // main constructor
+@RequiredArgsConstructor // overloaded constructor (with the 2 final fields)
 public class Configuration {
-    private int totalTickets;
+    private final int totalTickets;
     private int ticketReleaseRate;
     private int customerRetrievalRate;
-    private int maxTicketCapacity;
+    private final int maxTicketCapacity;
     private int numOfVendors;
     private int numOfCustomers;
     private static Logger logger = Logger.getLogger(Configuration.class.getName());
 
-
-//      Static variable for the path to save any serialized files.
+//     path to save any serialized files.
     public static final String PATH = "./src/main/java/com/saajid/realtimeticketingapp/data/";
 
 //    add the handler just once when the class loads. (static initialization)
@@ -37,18 +38,7 @@ public class Configuration {
     }
 
     /**
-     * Overloaded Constructor to initialize configuration
-     * @param totalTickets Total tickets in the ticket pool
-     * @param maxTicketCapacity Maximum number of tickets in the ticket pool
-     */
-    public Configuration(int totalTickets, int maxTicketCapacity){
-        this.totalTickets = totalTickets;
-        this.maxTicketCapacity = maxTicketCapacity;
-    }
-
-
-    /**
-     * Maps object to JSON format, Text format and saves it to a File;
+     * Maps object to JSON format and text format and saves it to a File;
      */
     public void serialize(){
             Gson gson = new Gson();
