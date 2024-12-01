@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -70,12 +71,16 @@ public class Configuration {
     public void serialize(){
             Gson gson = new Gson();
         try{
-            FileWriter writer = new FileWriter(PATH + "TicketConfig.json");
-            gson.toJson(this, writer); writer.close();
+            PrintWriter writer = new PrintWriter(PATH + "TicketConfig.json");
+            gson.toJson(this, writer);
+            writer.flush(); // immediately writes to the file
+            writer.close();
 
-            writer = new FileWriter(PATH + "TicketConfig.txt");
+            writer = new PrintWriter(PATH + "TicketConfig.txt");
             String ticketLog = "Total Tickets: " + this.totalTickets  + ", Ticket Release Rate: " + this.ticketReleaseRate  + ", Customer Retrieval Rate: " +  this.customerRetrievalRate  + ", Maximum Ticket Capacity: " +  this.maxTicketCapacity  + ", Number of Vendors: " + this.numOfVendors  + ", Number of Customers: " + this.numOfCustomers;
-            writer.write(ticketLog); writer.close();
+            writer.println(ticketLog);
+            writer.flush(); // immediately writes to the file
+            writer.close();
 
             logInfo(logger, ticketLog, "INFO");
             logInfo(logger, "Serialized and saved Configuration files as TicketConfig.json & TicketConfig.txt Successfully", "INFO");
