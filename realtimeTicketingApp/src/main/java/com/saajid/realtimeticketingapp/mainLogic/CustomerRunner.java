@@ -1,16 +1,12 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
-import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
-
+import lombok.AllArgsConstructor;
 /**
  * This class is responsible for the creation of multiple customer threads
  */
+@AllArgsConstructor
 public class CustomerRunner implements Runnable {
     private TicketPool ticketPool;
-
-    public CustomerRunner(TicketPool ticketPool){
-        this.ticketPool = ticketPool;
-    }
 
     /**
      * Creates and runs specified number of customer threads at specified intervals

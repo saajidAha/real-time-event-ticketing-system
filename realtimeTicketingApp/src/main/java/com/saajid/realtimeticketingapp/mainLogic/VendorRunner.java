@@ -1,14 +1,13 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
+import lombok.AllArgsConstructor;
+
 /**
  * This class is responsible for the creation of multiple Vendor threads
  */
+@AllArgsConstructor
 public class VendorRunner implements Runnable {
     private TicketPool ticketPool;
-
-    public VendorRunner(TicketPool ticketPool){
-        this.ticketPool = ticketPool;
-    }
 
     /**
      * Creates and runs specified number of Vendor threads at specified intervals

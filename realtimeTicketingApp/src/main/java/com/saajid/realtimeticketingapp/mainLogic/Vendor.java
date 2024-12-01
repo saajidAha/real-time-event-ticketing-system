@@ -1,14 +1,13 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
+import lombok.AllArgsConstructor;
+
 /**
  * This class represents the Vendor threads
  */
+@AllArgsConstructor
 public class Vendor implements Runnable{
     private TicketPool ticketPool;
-
-    public Vendor(TicketPool ticketPool){
-        this.ticketPool = ticketPool;
-    }
 
 //    each vendor releases a single ticket
     @Override
