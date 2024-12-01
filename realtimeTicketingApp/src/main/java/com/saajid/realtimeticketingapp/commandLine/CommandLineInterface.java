@@ -4,6 +4,8 @@ import com.saajid.realtimeticketingapp.mainLogic.Configuration;
 import com.saajid.realtimeticketingapp.mainLogic.LoggerHandler;
 import com.saajid.realtimeticketingapp.mainLogic.Simulator;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -24,7 +26,7 @@ public class CommandLineInterface {
     /**
      * Initializes & starts the command line interface
      */
-    public static void init() {
+    public static void start() {
         System.out.println(getWelcomeMsg());
 
         // Prompt user for configuration
@@ -122,5 +124,4 @@ public class CommandLineInterface {
                         "\n\n✨✨✨ Welcome to the Real-Time Event Ticketing System ⚡ Command Line Interface! ⚡ ✨✨✨\n"
                 ;
     }
-
 }

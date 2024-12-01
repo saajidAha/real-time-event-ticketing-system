@@ -10,12 +10,12 @@ public class RealtimeTicketingAppApplication {
 	public static void main(String[] args) {
 //		Run the CLI until user wants to exit
 		do{
-			CommandLineInterface.init();
+			CommandLineInterface.start();
 		}
 		while(CommandLineInterface.checkYesNoResponse("Do you want to use the command line again?"));
 
-//		Start the springboot server based on user response else terminate the program
-		if (CommandLineInterface.checkYesNoResponse("Do you want to start the SpringBoot Server?")){
+		//Start the springboot server based on user response else terminate the program
+		if (CommandLineInterface.checkYesNoResponse("Do you want to start the SpringBoot Server & React Front-end server?")){
 			SpringApplication.run(RealtimeTicketingAppApplication.class, args);
 		}
 		else{
