@@ -16,7 +16,7 @@ public class VendorRunner implements Runnable {
     @Override
     public void run(){
         for (int i=1; i<=ticketPool.getConfig().getNumOfVendors(); i++){
-            if (!TicketPool.vendorThreadCanRun){
+            if (!ticketPool.vendorThreadCanRun){
                 break;
             }
             Thread thread = new Thread( new Vendor(ticketPool) , "Vendor_#" + i); // create the thread

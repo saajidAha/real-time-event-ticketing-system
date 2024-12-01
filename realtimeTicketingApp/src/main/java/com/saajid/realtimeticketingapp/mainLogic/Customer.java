@@ -12,7 +12,7 @@ public class Customer implements Runnable{
     // each customer purchases a single ticket
     @Override
     public void run(){
-        if (TicketPool.customerThreadCanRun){
+        if (ticketPool.customerThreadCanRun){
             this.ticketPool.removeTicket();
         }
     }

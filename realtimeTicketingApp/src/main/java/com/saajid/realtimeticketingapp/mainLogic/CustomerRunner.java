@@ -18,7 +18,7 @@ public class CustomerRunner implements Runnable {
     @Override
     public void run(){
         for (int i=1; i<=this.ticketPool.getConfig().getNumOfCustomers(); i++){
-            if (!TicketPool.customerThreadCanRun){
+            if (!ticketPool.customerThreadCanRun){
                 break;
             }
             Thread thread = new Thread( new Customer(ticketPool) , "Customer_#" + i); // create the thread

@@ -13,7 +13,7 @@ public class Vendor implements Runnable{
 //    each vendor releases a single ticket
     @Override
     public void run(){
-        if(TicketPool.vendorThreadCanRun){
+        if(ticketPool.vendorThreadCanRun){
             this.ticketPool.addTicket( new Ticket() );
         }
     }
