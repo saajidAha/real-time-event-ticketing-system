@@ -1,18 +1,23 @@
 package com.saajid.realtimeticketingapp.mainLogic;
 
 import com.google.gson.Gson;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
 import static com.saajid.realtimeticketingapp.mainLogic.LoggerHandler.logInfo;
 
 /**
  * This class is responsible for the configuration of how the user wants to simulate the ticketing system
  */
+@Data
+@NoArgsConstructor // Default constructor for Jackson deserialization
+@AllArgsConstructor
 public class Configuration {
     private int totalTickets;
     private int ticketReleaseRate;
@@ -31,31 +36,8 @@ public class Configuration {
         logger.addHandler( LoggerHandler.getFileHandler() );
     }
 
-    // Default constructor for Jackson deserialization
-    public Configuration() {
-    // this constructor is required for jackson to convert the json payload to object;
-    }
-
     /**
-     * Constructor to initialize the Configuration
-     * @param totalTickets Total tickets in the ticket pool
-     * @param ticketReleaseRate Frequency of tickets released by vendors (milliseconds)
-     * @param customerRetrievalRate Frequency of tickets purchased by customers (milliseconds)
-     * @param maxTicketCapacity Maximum number of tickets in the ticket pool
-     * @param numOfVendors Number of vendors releasing tickets in the simulation
-     * @param numOfCustomers Number of customers purchasing in the simulation
-     */
-    public Configuration(int totalTickets, int ticketReleaseRate, int customerRetrievalRate, int maxTicketCapacity, int numOfVendors, int numOfCustomers){
-        this.totalTickets = totalTickets;
-        this.ticketReleaseRate = ticketReleaseRate;
-        this.customerRetrievalRate = customerRetrievalRate;
-        this.maxTicketCapacity = maxTicketCapacity;
-        this.numOfVendors = numOfVendors;
-        this.numOfCustomers = numOfCustomers;
-    }
-
-    /**
-     * Constructor to initialize configuration
+     * Overloaded Constructor to initialize configuration
      * @param totalTickets Total tickets in the ticket pool
      * @param maxTicketCapacity Maximum number of tickets in the ticket pool
      */
@@ -105,74 +87,5 @@ public class Configuration {
             logInfo(logger,"Unable to read file.", "SEVERE");
         }
         return config;
-    }
-
-    public static Logger getLogger() {
-        return logger;
-    }
-
-    /**
-     * Getters and Setters
-     */
-    public int getTotalTickets() {
-        return totalTickets;
-    }
-
-    public void setTotalTickets(int totalTickets) {
-        this.totalTickets = totalTickets;
-    }
-
-    public int getTicketReleaseRate() {
-        return ticketReleaseRate;
-    }
-
-    public void setTicketReleaseRate(int ticketReleaseRate) {
-        this.ticketReleaseRate = ticketReleaseRate;
-    }
-
-    public int getCustomerRetrievalRate() {
-        return customerRetrievalRate;
-    }
-
-    public void setCustomerRetrievalRate(int customerRetrievalRate) {
-        this.customerRetrievalRate = customerRetrievalRate;
-    }
-
-    public int getMaxTicketCapacity() {
-        return maxTicketCapacity;
-    }
-
-    public void setMaxTicketCapacity(int maxTicketCapacity) {
-        this.maxTicketCapacity = maxTicketCapacity;
-    }
-
-    public int getNumOfVendors() {
-        return numOfVendors;
-    }
-
-    public int getNumOfCustomers() {
-        return numOfCustomers;
-    }
-
-    public void setNumOfVendors(int numOfVendors) {
-        this.numOfVendors = numOfVendors;
-    }
-
-    public void setNumOfCustomers(int numOfCustomers) {
-        this.numOfCustomers = numOfCustomers;
-    }
-
-    public static void setLogger(Logger logger) {
-        Configuration.logger = logger;
-    }
-
-    @Override
-    public String toString() {
-        return "Configuration{" +
-                "totalTickets=" + totalTickets +
-                ", ticketReleaseRate=" + ticketReleaseRate +
-                ", customerRetreivalRate=" + customerRetrievalRate +
-                ", maxTicketCapacity=" + maxTicketCapacity +
-                '}';
     }
 }
