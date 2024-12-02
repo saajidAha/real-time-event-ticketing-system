@@ -88,7 +88,7 @@ public class TicketService {
         config.serialize();
         // start simulation
         Simulator simulator = new Simulator(config);
-        simulator.simulate();
+        simulator.start();
         ticketPool = simulator.getTicketPool();
 
         // save all of the tickets that was created during the simulation to the database

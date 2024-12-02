@@ -29,10 +29,10 @@ public class Simulator {
     /**
      * Simulates multithreaded environment where multiple customers and vendors interact with the ticket pool
      */
-    public void simulate() {
+    public void start() {
         // create threads with runnable
-        Thread customerRunner = new Thread( new CustomerRunner(this.ticketPool) , "Run customer thread");
-        Thread vendorRunner = new Thread( new VendorRunner(this.ticketPool) , "Run vendor thread");
+        Thread customerRunner = new Thread( new CustomerRunner(this.ticketPool) , "Customer runner");
+        Thread vendorRunner = new Thread( new VendorRunner(this.ticketPool) , "Vendor runner");
 
         // start threads
         customerRunner.start();

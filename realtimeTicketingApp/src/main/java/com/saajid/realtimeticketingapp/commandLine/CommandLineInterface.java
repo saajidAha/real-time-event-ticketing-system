@@ -4,8 +4,6 @@ import com.saajid.realtimeticketingapp.mainLogic.Configuration;
 import com.saajid.realtimeticketingapp.mainLogic.LoggerHandler;
 import com.saajid.realtimeticketingapp.mainLogic.Simulator;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -50,7 +48,7 @@ public class CommandLineInterface {
         if ( checkYesNoResponse("Do you want to run the simulation?") ){
             Simulator simulator = new Simulator(config);
             logInfo(logger, "Simulation Request recieved from the CLI started successfully", "INFO");
-            simulator.simulate(); // Run simulation
+            simulator.start(); // Run simulation
         } else{
             logInfo(logger, "System stopped as per requested.", "INFO");
         }
