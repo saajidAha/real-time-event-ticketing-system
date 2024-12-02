@@ -19,7 +19,7 @@ const LogDisplay = () => {
     }, []);
 
     return (
-        <div className="w-[500px] border-2 text-black bg-white font-sans border-3 border-black rounded-lg ml-2 mt-2 p-4">
+        <div className=" inline-flex flex-col w-[500px] border-2 text-black bg-white font-sans border-3 border-black rounded-lg ml-2 mt-2 p-4">
                 {/*<button onClick={fetchData}>Get Data</button>*/}
             <h2 className="font-bold text-2xl text-center">
                 Live logs from backend
