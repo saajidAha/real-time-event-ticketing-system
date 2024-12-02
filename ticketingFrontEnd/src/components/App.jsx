@@ -1,9 +1,8 @@
-import Home from "./Home.jsx";
-
+import LogDisplay from "./LogDisplay.jsx";
 const App = () => {
     return (
         <>
-            <Home />
+            <LogDisplay />
         </>
     )
 }
