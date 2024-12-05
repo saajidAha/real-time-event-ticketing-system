@@ -14,7 +14,7 @@ const LogDisplay = () => {
     };
 
     useEffect(() => {
-        let intervalID = setInterval(fetchData, 1500 ) // Call fetchData when the component mounts
+        let intervalID = setInterval(fetchData, 1000 ) // Call fetchData when the component mounts
         return () => {clearInterval(intervalID)};
     }, []);
 
