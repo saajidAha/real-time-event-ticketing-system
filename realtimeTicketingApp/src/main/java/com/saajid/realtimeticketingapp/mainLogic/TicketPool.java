@@ -121,4 +121,34 @@ public class TicketPool {
             return removedTicket;
     }
 
+    /**
+     * Overloaded method to remove specific ticket
+     * @param ticketID ID of the specific ticket
+     */
+    public synchronized boolean removeTicket(String ticketID){
+        Ticket ticketToRemove = findTicketById(ticketID);
+        if (ticketToRemove != null){
+            tickets.remove(ticketToRemove);
+            logInfo(logger,Thread.currentThread().getName() + " purchased ticket: [Ticket ID: " + ticketToRemove.getTicketID() + "]", "INFO");
+            return true;
+        }else{
+            logInfo(logger, "Could not find ticket with ticket ID : " + ticketID + " in the ticket pool. please try purchasing an available ticket.", "WARNING");
+            return false;
+        }
+    }
+
+    /**
+     * Finds a specific ticket based on the id of it
+     * @param ticketID Specific ID of the ticket
+     * @return Ticket object
+     */
+    public Ticket findTicketById(String ticketID){
+        Ticket ticketToRemove = null;
+        for (Ticket ticket: tickets){
+            if ( ticketID.equalsIgnoreCase(ticket.getTicketID()) ){
+                ticketToRemove = ticket;
+            }
+        }
+        return ticketToRemove;
+    }
 }

@@ -57,11 +57,12 @@ public class TicketController {
     }
 
     /**
-     * Removes the first ticket from the ticketpool array
+     * Removes the specific ticket
+     * @param ticketID ID of the specifc ticket
      */
-    @PostMapping("/tickets/remove")
-    public void removeTicket(){
-        this.ticketService.removeTicket();
+    @DeleteMapping("/tickets/{id}")
+    public void removeTicket(@PathVariable("id") String ticketID){
+        this.ticketService.removeTicket(ticketID);
     }
 
     /**

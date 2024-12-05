@@ -39,6 +39,7 @@ public class TicketService {
      * @param config Configuration object
      */
     public void createTicketPool(Configuration config){
+        LoggerHandler.clearLogs();
         config.serialize();
         ticketPool = new TicketPool(config);
     }
@@ -48,7 +49,7 @@ public class TicketService {
      * @param ticket Ticket object
      */
     public void addTicket(Ticket ticket){
-        if (ticketPool != null){
+        if ( checkTicketPoolExists() ){
             ticketPool.addTicket(ticket);
             transactionRepository.save( new Transaction( ticket.getTicketID(), "Ticket Release", "Front-end User" ) );
         }else{
@@ -57,17 +58,16 @@ public class TicketService {
     }
 
     /**
-     * Removes the first ticket from the ticketpool array
+     * Removes a ticket based on the recieved ticket id
+     * @param ticketID The ticket id of the ticket object
      */
-    public void removeTicket(){
-        Ticket removedTicket = null;
-        if (ticketPool != null){
-            removedTicket = ticketPool.removeTicket();
-        }else{
+    public void removeTicket(String ticketID){
+        if ( checkTicketPoolExists() ){
+            if( ticketPool.removeTicket(ticketID) ){
+                transactionRepository.save(new Transaction(ticketID, "Ticket Purchase", "Front-end User"));
+            }
+        } else{
             logInfo(logger, "Cannot purchase ticket due to no existing ticket pool", "Warning");
-        }
-        if(removedTicket != null){
-            transactionRepository.save( new Transaction(removedTicket.getTicketID(), "Ticket Purchase", "Front-end User") );
         }
     }
 
@@ -76,22 +76,34 @@ public class TicketService {
      * @return An array of tickets
      */
     public List<Ticket> getTicketsList(){
-        return ticketPool.getTickets();
+        List<Ticket> tickets = new ArrayList<>();
+       if( ticketPool != null ){
+           tickets = ticketPool.getTickets();
+       }
+       return tickets;
     }
 
     /**
      * Runs simulation based on the configuration
      * @param config Configuration object
      */
-    public void simulate(Configuration config){
+    public synchronized void simulate(Configuration config){
         LoggerHandler.clearLogs();
         config.serialize();
         // start simulation
         Simulator simulator = new Simulator(config);
-        simulator.start();
         ticketPool = simulator.getTicketPool();
+        simulator.start();
 
         // save all of the tickets that was created during the simulation to the database
         transactionRepository.saveAll(ticketPool.getTransactions());
+    }
+
+    /**
+     * Check if the ticketpool is not null and is existing and logs the info.
+     * @return A boolean value of true if the ticketpool is in existence. else false.
+     */
+    private static boolean checkTicketPoolExists(){
+        return ticketPool != null;
     }
 }
