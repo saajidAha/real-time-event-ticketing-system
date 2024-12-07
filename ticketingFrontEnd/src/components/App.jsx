@@ -1,24 +1,33 @@
-import LogDisplay from "./LogDisplay.jsx";
-import TicketDisplay from "./TicketDisplay.jsx";
-import ConfigurationForm from "./ConfigurationForm.jsx";
-import Test from "./Test.jsx";
-import Customer from "./Customer.jsx";
-import Vendor from "./Vendor.jsx";
-import CreatePool from "./CreatePool.jsx";
-import {createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import MainLayout from "../layouts/MainLayout.jsx";
 
 const App = () => {
-    const router = createBrowserRouter([]);
+    // createBrowserRouter specifies the paths and what should be displayed in them;
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: <MainLayout />,
+            children: [
+                {
+                    path: "/" ,
+                    element: <h1>Home Page</h1>
+                },
+                {
+                    path: "/customer",
+                    element: <h1>Customer Page</h1>
+                },
+                {
+                    path:"/vendor",
+                    element: <h1>Vendor Page</h1>
+                }
+            ]
+        }
+    ]);
 
     return (
         <>
-            {/*<Test />*/}
-            <Customer />
-            <Vendor />
-            <CreatePool />
-            <ConfigurationForm />
-            <TicketDisplay />
-            <LogDisplay />
+            {/*RouterProvider displays whatever is specified in the browserrouter*/}
+            <RouterProvider router={router}/>
         </>
     )
 }
