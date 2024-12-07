@@ -20,7 +20,7 @@ const TicketDisplay = () => {
     }, [] )
   return(
       <>
-          <div className="inline-flex flex-col w-[500px] border-2 text-black bg-white font-sans border-3 border-black rounded-lg ml-2 mt-2 p-4">
+          <div className="inline-flex flex-col w-[300px] border-2 text-black bg-white font-sans border-3 border-black rounded-lg ml-2 mt-2 p-4">
               <h2 className="font-bold text-2xl text-center">
                   Live Available Tickets {tickets.length}
               </h2>

@@ -2,6 +2,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import MainLayout from "../layouts/MainLayout.jsx";
 import CustomerPage from "../pages/CustomerPage.jsx";
 import VendorPage from "../pages/VendorPage.jsx";
+import SimulationPage from "../pages/SimulationPage.jsx";
 
 const App = () => {
     // createBrowserRouter specifies the paths and what should be displayed in them;
@@ -12,7 +13,7 @@ const App = () => {
             children: [
                 {
                     path: "/" ,
-                    element: <h1>Home Page</h1>
+                    element: <SimulationPage />
                 },
                 {
                     path: "/customer",

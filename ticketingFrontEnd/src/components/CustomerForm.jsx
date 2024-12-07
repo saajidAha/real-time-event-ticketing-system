@@ -1,5 +1,6 @@
 import axios from "axios";
 import {useState} from "react";
+import TicketPoolForm from "./TicketPoolForm.jsx";
 
 const CustomerForm = () => {
     // state to track the id of the ticket
@@ -21,11 +22,12 @@ const CustomerForm = () => {
     }
     return(
         <>
-            <form onSubmit={(event)=>{event.preventDefault()}}>
+            <form onSubmit={(event)=>{event.preventDefault()}} className="inline-block">
                 <label htmlFor="ticketID">Enter Ticket ID: </label>
                 <input type="text" onChange={handleChange} placeholder="ID"/>
-                <input type="submit" onClick={buyTicket} value="Buy ticket" className="cursor-pointer"/>
+                <input type="submit" onClick={buyTicket} value="Buy ticket" className="cursor-pointer block"/>
             </form>
+            <TicketPoolForm />
         </>
 
     )
