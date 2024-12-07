@@ -5,7 +5,11 @@ import Test from "./Test.jsx";
 import Customer from "./Customer.jsx";
 import Vendor from "./Vendor.jsx";
 import CreatePool from "./CreatePool.jsx";
+import {createBrowserRouter} from "react-router-dom";
+
 const App = () => {
+    const router = createBrowserRouter([]);
+
     return (
         <>
             {/*<Test />*/}
