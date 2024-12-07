@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 @Entity
 @NoArgsConstructor (force = true) // generate no argument constructor (because required for JPA repository) (force=true makes sure that null values are assigned to the fields)
-@RequiredArgsConstructor // generate constructor with all arguments for the instance variables
+@RequiredArgsConstructor // generate constructor with arguments for the 3 final instance variables (ticketID, transactionType, threadName)
 public class Transaction {
     @Id
     private String transactionID = UUID.randomUUID().toString().substring(0,8); // Generate a random ID with 4 characters
