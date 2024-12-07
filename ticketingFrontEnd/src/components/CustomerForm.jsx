@@ -1,7 +1,7 @@
 import axios from "axios";
 import {useState} from "react";
 
-const Customer = () => {
+const CustomerForm = () => {
     // state to track the id of the ticket
     const [ticketID, setTicketID] = useState("");
     // Buy a single ticket
@@ -21,9 +21,6 @@ const Customer = () => {
     }
     return(
         <>
-           <h2>
-               Customer Purchase Section
-           </h2>
             <form onSubmit={(event)=>{event.preventDefault()}}>
                 <label htmlFor="ticketID">Enter Ticket ID: </label>
                 <input type="text" onChange={handleChange} placeholder="ID"/>
@@ -33,4 +30,4 @@ const Customer = () => {
 
     )
 }
-export default Customer;
+export default CustomerForm;

@@ -1,7 +1,7 @@
 import axios from "axios";
 import {useState} from "react";
 
-const CreatePool = () => {
+const TicketPoolForm = () => {
     // state to track the form data
     const [formData, setFormData] = useState({});
     // Create a ticket pool
@@ -40,4 +40,4 @@ const CreatePool = () => {
 
     )
 }
-export default CreatePool;
+export default TicketPoolForm;

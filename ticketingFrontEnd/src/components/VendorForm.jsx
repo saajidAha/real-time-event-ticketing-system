@@ -1,7 +1,7 @@
 import axios from "axios";
 import {useState} from "react";
 
-const Vendor = () => {
+const VendorForm = () => {
     // state to track the id of the ticket
     const [ticketID, setTicketID] = useState("");
     // Release a specific ticket
@@ -21,9 +21,6 @@ const Vendor = () => {
     }
     return(
         <>
-            <h2>
-                Vendor Ticket Release Section
-            </h2>
             <form onSubmit={(event)=>{event.preventDefault()}}>
                 <label htmlFor="ticketID">Enter Ticket ID: </label>
                 <input type="text" onChange={handleChange} placeholder="ID"/>
@@ -33,4 +30,4 @@ const Vendor = () => {
 
     )
 }
-export default Vendor;
+export default VendorForm;

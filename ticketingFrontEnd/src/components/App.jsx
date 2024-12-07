@@ -1,5 +1,7 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import MainLayout from "../layouts/MainLayout.jsx";
+import CustomerPage from "../pages/CustomerPage.jsx";
+import VendorPage from "../pages/VendorPage.jsx";
 
 const App = () => {
     // createBrowserRouter specifies the paths and what should be displayed in them;
@@ -14,11 +16,11 @@ const App = () => {
                 },
                 {
                     path: "/customer",
-                    element: <h1>Customer Page</h1>
+                    element: <CustomerPage />
                 },
                 {
                     path:"/vendor",
-                    element: <h1>Vendor Page</h1>
+                    element: <VendorPage />
                 }
             ]
         }
