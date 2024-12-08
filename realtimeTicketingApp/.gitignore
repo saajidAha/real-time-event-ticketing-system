@@ -32,4 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/java/com/saajid/realtimeticketingapp/mainLogic/TestSimulator.java
-/src/main/java/com/saajid/realtimeticketingapp/data/
+/src/main/java/com/saajid/realtimeticketingapp/data/TicketConfig.json
+/src/main/java/com/saajid/realtimeticketingapp/data/SessionLog.log
+/src/main/java/com/saajid/realtimeticketingapp/data/TicketConfig.txt
