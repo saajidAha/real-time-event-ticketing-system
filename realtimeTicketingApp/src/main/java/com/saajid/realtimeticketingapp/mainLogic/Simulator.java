@@ -46,7 +46,5 @@ public class Simulator {
             logInfo(logger,"Error when joining.", "SEVERE");
         }
         logInfo(logger,"Simulation execution completed successfully", "INFO");
-        System.out.println(LoggerHandler.getLogs());
-
     }
 }
