@@ -29,7 +29,6 @@ const VendorForm = () => {
                     <input type="submit" onClick={releaseTicket} value="Release Ticket" className="cursor-pointer block"/>
                 </form>
             </div>
-            <TicketPoolForm />
         </>
 
     )

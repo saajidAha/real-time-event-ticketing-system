@@ -27,7 +27,6 @@ const CustomerForm = () => {
                 <input type="text" onChange={handleChange} placeholder="ID"/>
                 <input type="submit" onClick={buyTicket} value="Buy ticket" className="cursor-pointer block"/>
             </form>
-            <TicketPoolForm />
         </>
 
     )

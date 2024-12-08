@@ -4,7 +4,6 @@ import {useState} from "react";
 const TicketPoolForm = () => {
     // state to track the form data
     const [formData, setFormData] = useState({});
-    const [errorMessage, setErrorMessage] = useState("");
     const [capacityErrorMsg, setCapacityErrorMsg] = useState("");
     const [positiveErrorMsg, setPositiveErrorMsg] = useState("");
     const [nonNumericErrorMsg, setNonNumericErrorMsg] = useState("");
@@ -14,7 +13,6 @@ const TicketPoolForm = () => {
         if(validateInput()){
             setCapacityErrorMsg(""); setPositiveErrorMsg(""); setNonNumericErrorMsg("");
             console.log(formData);
-            setErrorMessage("");
             // send request to create ticket pool
             try {
                 let response = await axios.post(`http://localhost:8080/tickets/createpool`, formData);
@@ -43,6 +41,15 @@ const TicketPoolForm = () => {
         return validated;
     }
 
+    // reset the ticketpool
+    const resetPool = async () => {
+        try{
+            await axios.post("http://localhost:8080/tickets/resetpool")
+        }catch(error){
+            console.log(error.message);
+        }
+    }
+
     // handle the changes of the input text and set the state;
     const handleChange = (event) => {
         let {name, value} = event.target;
@@ -69,6 +76,9 @@ const TicketPoolForm = () => {
                 <label htmlFor="maxTicketCapacity">Max Ticket Capacity: </label>
                 <input type="text" onChange={handleChange} placeholder="value" name="maxTicketCapacity"/>
                 <input type="submit" onClick={createTicketPool} value="Initialize" className="cursor-pointer block"/>
+                <input onClick={resetPool}
+                       className="rounded-full text-white font-medium bg-red-700 border-2 px-3 mt-2 cursor-pointer"
+                       value="RESET Ticket Pool" type="submit"/>
             </form>
             <h2 className="text-red-700 font-bold w-[300px] text-[14px]">
                 {capacityErrorMsg}

@@ -46,7 +46,7 @@ const ConfigurationForm = () => {
 
     const stopSimulation = async() => {
         try{
-            let response = await axios.post("http://localhost:8080/tickets/stop")
+            await axios.post("http://localhost:8080/tickets/stop")
         }catch(error){
             console.log(error.message);
         }
