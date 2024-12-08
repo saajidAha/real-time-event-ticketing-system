@@ -38,6 +38,10 @@ const TicketPoolForm = () => {
             setPositiveErrorMsg("Please enter positive values.");
             validated = false;
         }
+        if (parseInt(formData.totalTickets) ===0 && parseInt(formData.maxTicketCapacity) ===0){
+            setPositiveErrorMsg("Total tickets and max ticket capacity cannot be 0 at the same time");
+            validated = false;
+        }
         return validated;
     }
 
@@ -64,18 +68,25 @@ const TicketPoolForm = () => {
     }
 
     return(
-        <div className="inline-flex flex-col">
-            <h2 className="">
+        // <div className="inline-flex flex-col">
+            <div className="inline-flex flex-col w-[500px] border-2 text-black bg-white font-sans border-3 border-black rounded-lg ml-2 mt-2 p-4">
+            <h2 className="text-2xl font-bold pb-4">
                 Ticket Pool Initialization Form
             </h2>
             <form onSubmit={(event) => {
                 event.preventDefault()
-            }} className="w-[300px]">
-                <label htmlFor="totalTickets">Total Tickets: </label>
-                <input type="text" onChange={handleChange} placeholder="Initial number of tickets" name="totalTickets"/>
-                <label htmlFor="maxTicketCapacity">Max Ticket Capacity: </label>
-                <input type="text" onChange={handleChange} placeholder="value" name="maxTicketCapacity"/>
-                <input type="submit" onClick={createTicketPool} value="Initialize" className="cursor-pointer block"/>
+            }}>
+                <div>
+                    <label htmlFor="totalTickets"  className="inline-block w-60">Total Tickets: </label>
+                    <input type="text" onChange={handleChange} placeholder="Initial number of tickets" name="totalTickets" className=""/>
+                </div>
+                <div>
+                    <label htmlFor="maxTicketCapacity" className="inline-block w-60">Max Ticket Capacity: </label>
+                    <input type="text" onChange={handleChange} placeholder="value" name="maxTicketCapacity"/>
+                </div>
+                <input onClick={createTicketPool}
+                       className="rounded-full text-white font-medium bg-green-700 border-2 px-3 mt-2 cursor-pointer"
+                       value="Initialize" type="submit"/>
                 <input onClick={resetPool}
                        className="rounded-full text-white font-medium bg-red-700 border-2 px-3 mt-2 cursor-pointer"
                        value="RESET Ticket Pool" type="submit"/>

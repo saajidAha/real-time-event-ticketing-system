@@ -66,6 +66,10 @@ const ConfigurationForm = () => {
             setPositiveErrorMsg("Please enter positive values.");
             validated = false;
         }
+        if (parseInt(formInfo.totalTickets) ===0 && parseInt(formInfo.maxTicketCapacity) ===0){
+            setPositiveErrorMsg("Total tickets and max ticket capacity cannot be 0 at the same time");
+            validated = false;
+        }
         return validated;
     }
     // inputs with labels
