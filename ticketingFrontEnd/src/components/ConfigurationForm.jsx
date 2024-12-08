@@ -31,7 +31,7 @@ const ConfigurationForm = () => {
         event.preventDefault();
     }
 
-    const submitToBackend = async() => {
+    const startSimulation = async() => {
         if (validateInput()){
             setCapacityErrorMsg(""); setPositiveErrorMsg(""); setNonNumericErrorMsg("");
             console.log(formInfo);
@@ -41,6 +41,14 @@ const ConfigurationForm = () => {
             }catch(error) {
                 console.log(error.message);
             }
+        }
+    }
+
+    const stopSimulation = async() => {
+        try{
+            let response = await axios.post("http://localhost:8080/tickets/stop")
+        }catch(error){
+            console.log(error.message);
         }
     }
     const validateInput = () => {
@@ -100,8 +108,8 @@ const ConfigurationForm = () => {
                     <input onChange={handleChange} required type="text" name="numOfCustomers" placeholder="value"
                            className="px-2"/>
                 </div>
-                <input onClick={submitToBackend} className="rounded border-black border-2 px-3 mt-2 cursor-pointer"
-                       value="Simulate" type="submit"/>
+                <input onClick={startSimulation} className="rounded-full text-white font-medium bg-green-700 border-2 px-3 mt-2 cursor-pointer" value="Start" type="submit"/>
+                <input onClick={stopSimulation} className="rounded-full text-white font-medium bg-red-700 border-2 px-3 mt-2 cursor-pointer" value="Stop" type="submit"/>
             </form>
             <h2 className="text-red-700 font-bold w-[300px] text-[14px]">
                 {capacityErrorMsg}
