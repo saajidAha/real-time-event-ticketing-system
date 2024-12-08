@@ -115,4 +115,15 @@ public class TicketService {
         ticketPool.setVendorThreadCanRun(false);
         logInfo(logger, "Vendor & Customer threads have been STOPPED As per request from the front-end.", "WARNING");
     }
+
+    /**
+     * Resets the ticket pool
+     */
+    public void resetTicketPool(){
+        if (checkTicketPoolExists()){
+            ticketPool = null;
+            LoggerHandler.clearLogs();
+            logInfo(logger, "TicketPool RESET successful.", "INFO");
+        }
+    }
 }

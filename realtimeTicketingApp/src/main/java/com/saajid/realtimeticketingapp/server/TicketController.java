@@ -91,4 +91,11 @@ public class TicketController {
     public void stopThreads(){
         this.ticketService.stopThreads();
     }
+    /**
+     * Resets the ticket pool
+     */
+    @PostMapping("/tickets/resetpool")
+    public void resetTicketPool(){
+        this.ticketService.resetTicketPool();
+    }
 }
