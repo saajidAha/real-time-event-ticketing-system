@@ -59,7 +59,8 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<scope>annotationProcessor</scope>
+			<scope>provided</scope>
+<!--			<scope>annotationProcessor</scope> commented it because causes warning and replaced with provided-->
 		</dependency>
 	</dependencies>
 
