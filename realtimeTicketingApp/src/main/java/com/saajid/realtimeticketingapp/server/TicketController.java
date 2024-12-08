@@ -39,6 +39,14 @@ public class TicketController {
     }
 
     /**
+     * clears logs
+     */
+    @PutMapping("/logs")
+    public void clearLogs(){
+        this.ticketService.clearLogs();
+    }
+
+    /**
      * Creates a TicketPool object
      * @param config Configuration object
      */
@@ -98,4 +106,5 @@ public class TicketController {
     public void resetTicketPool(){
         this.ticketService.resetTicketPool();
     }
+
 }

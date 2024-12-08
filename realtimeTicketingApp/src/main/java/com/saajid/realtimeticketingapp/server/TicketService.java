@@ -35,6 +35,13 @@ public class TicketService {
     }
 
     /**
+     * clears logs
+     */
+    public void clearLogs(){
+        LoggerHandler.clearLogs();
+    }
+
+    /**
      * Creates a TicketPool object
      * @param config Configuration object
      */
@@ -53,7 +60,7 @@ public class TicketService {
             ticketPool.addTicket(ticket);
             transactionRepository.save( new Transaction( ticket.getTicketID(), "Ticket Release", "Front-end User" ) );
         }else{
-            logInfo(logger, "Cannot release ticket due to no existing ticket pool", "Warning");
+            logInfo(logger, "Cannot release ticket "+ ticket.getTicketID() +" due to no existing ticket pool", "Warning");
         }
     }
 
@@ -67,7 +74,7 @@ public class TicketService {
                 transactionRepository.save(new Transaction(ticketID, "Ticket Purchase", "Front-end User"));
             }
         } else{
-            logInfo(logger, "Cannot purchase ticket due to no existing ticket pool", "Warning");
+            logInfo(logger, "Cannot purchase ticket "+ ticketID +" due to no existing ticket pool", "Warning");
         }
     }
 
