@@ -83,4 +83,12 @@ public class TicketController {
         logInfo(logger, "Simulation request recieved from the front-end successfully.","INFO");
         this.ticketService.simulate(config);
     }
+
+    /**
+     * Stops running threads
+     */
+    @PostMapping("/tickets/stop")
+    public void stopThreads(){
+        this.ticketService.stopThreads();
+    }
 }

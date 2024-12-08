@@ -106,4 +106,13 @@ public class TicketService {
     private static boolean checkTicketPoolExists(){
         return ticketPool != null;
     }
+
+    /**
+     * Stop the running threads
+     */
+    public void stopThreads(){
+        ticketPool.setCustomerThreadCanRun(false);
+        ticketPool.setVendorThreadCanRun(false);
+        logInfo(logger, "Vendor & Customer threads have been STOPPED As per request from the front-end.", "WARNING");
+    }
 }
