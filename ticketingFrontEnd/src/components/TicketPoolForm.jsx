@@ -69,12 +69,12 @@ const TicketPoolForm = () => {
 
     return(
         // <div className="inline-flex flex-col">
-            <div className="inline-flex flex-col w-[500px] border-2 text-black bg-white font-sans border-3 border-black rounded-lg ml-2 mt-2 p-4">
-            <h2 className="text-2xl font-bold pb-4">
-                Ticket Pool Initialization Form
-            </h2>
-            <form onSubmit={(event) => {
-                event.preventDefault()
+            <div className="inline-flex flex-col w-[500px] border-2 text-black bg-white border-3 border-black rounded-lg ml-2 mt-2 p-4">
+                <h2 className="text-2xl font-bold pb-4">
+                    <span className="text-red-700">Ticket Pool</span> Initialization Form
+                </h2>
+                <form onSubmit={(event) => {
+                    event.preventDefault()
             }}>
                 <div>
                     <label htmlFor="totalTickets"  className="inline-block w-60">Total Tickets: </label>

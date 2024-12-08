@@ -21,15 +21,10 @@ const CustomerForm = () => {
     }
     return(
         <>
-            {/*<form onSubmit={(event)=>{event.preventDefault()}} className="inline-block">*/}
-            {/*    <label htmlFor="ticketID">Enter Ticket ID: </label>*/}
-            {/*    <input type="text" onChange={handleChange} placeholder="ID"/>*/}
-            {/*    <input type="submit" onClick={buyTicket} value="Buy ticket" className="cursor-pointer block"/>*/}
-            {/*</form>*/}
             <div
-                className="inline-flex flex-col w-[500px] border-2 text-black bg-white font-sans border-3 border-black rounded-lg ml-2 mt-2 p-4">
+                className="inline-flex flex-col w-[500px] border-2 text-black bg-white border-3 border-black rounded-lg ml-2 mt-2 p-4 justify-between">
                 <h2 className="text-2xl font-bold pb-4">
-                    Customer Ticket Purchase Section
+                    <span className="text-red-700">Customer</span> Ticket Purchase Section
                 </h2>
                 <form onSubmit={(event) => {
                     event.preventDefault()

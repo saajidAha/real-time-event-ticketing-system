@@ -75,15 +75,18 @@ const ConfigurationForm = () => {
     // inputs with labels
     return(
         <div
-            className="inline-flex flex-col w-[500px] border-2 text-black bg-white font-sans border-3 border-black rounded-lg ml-2 mt-2 p-4">
-            <h2 className="text-2xl font-bold pb-4">
-                Simulation Panel (Enter Configuration Parameters)
+            className="inline-flex flex-col w-[500px] border-2 text-black bg-white border-3 border-black rounded-lg ml-2 mt-2 p-4 min-h-[300px]">
+            <h2 className="text-2xl font-bold text-center">
+                <span className="text-red-700">Simulation</span> Panel
+            </h2>
+            <h2 className="text-2xl font-bold pb-4 text-center">
+                (Enter Configuration Parameters)
             </h2>
             <form onSubmit={preventDefaultRefresh}> {/*prevent page from refreshing when submit*/}
                 <div>
                     <label className="inline-block w-60" htmlFor="totaltickets">Total Tickets: </label>
                     <input onChange={handleChange} required type="text" name="totalTickets"
-                           placeholder="Initial number of tickets" className="px-2"/>
+                           placeholder="Initial nos of tickets" className="px-2"/>
                 </div>
 
                 <div>

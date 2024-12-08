@@ -22,9 +22,9 @@ const VendorForm = () => {
     return(
         <>
             <div
-                className="inline-flex flex-col w-[500px] border-2 text-black bg-white font-sans border-3 border-black rounded-lg ml-2 mt-2 p-4">
+                className="inline-flex flex-col w-[500px] border-2 text-black bg-white border-3 border-black rounded-lg ml-2 mt-2 p-4">
                 <h2 className="text-2xl font-bold pb-4">
-                    Vendor Ticket Release Section
+                    <span className="text-red-700">Vendor</span> Ticket Release Section
                 </h2>
                 <form onSubmit={(event) => {
                     event.preventDefault()
