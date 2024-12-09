@@ -1,11 +1,11 @@
 ## Real Time Event Ticketing System (OOP CW)
-| **Heading**                 | **Description**                                     |
-|-----------------------------|-----------------------------------------------------|
-| **Name**                    | Saajid Ahamed                                       |
-| **UoW ID**                  | w2052929                                            |
-| **IIT ID**                  | 20221921                                            |
-| **Main Technologies**       | React.js (v18.3.1), Spring Boot (v3.3.5)            |
-| **Additional Technologies** | Node.js (v20.18.0) (Required for React.js Frontend) |
+| **Heading**                 | **Description**                                                           |
+|-----------------------------|---------------------------------------------------------------------------|
+| **Name**                    | Saajid Ahamed                                                             |
+| **UoW ID**                  | w2052929                                                                  |
+| **IIT ID**                  | 20221921                                                                  |
+| **Main Technologies**       | Java (v21.0.5) (2024-10-15 LTS), React.js (v18.3.1), Spring Boot (v3.3.5) |
+| **Additional Technologies** | Node.js (v20.18.0) (Required for React.js Frontend)                       |
 
 ### How to start CLI & SpringBoot Backend?
 #### Intellij IDEA IDE Guide: 
@@ -40,6 +40,6 @@
     npm run dev
     ```
 3. The server will run on port 3000 in this url: http://localhost:3000/
-4. After you have completed using, type "q" in the same terminal to close the port that the server is running .
+4. After you have completed using, type "q" in the same terminal to close the port that the server is running in.
 
 
