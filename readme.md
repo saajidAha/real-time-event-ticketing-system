@@ -42,4 +42,21 @@
 3. The server will run on port 3000 in this url: http://localhost:3000/
 4. After you have completed using, type "q" in the same terminal to close the port that the server is running in.
 
+## Usage Instructions
+1. Follow the instructions provided by the CLI / GUI for a smooth intuitive experience.
+2. Important note to consider when using the GUI: Before purchasing a ticket as a customer or releasing a ticket as a vendor, Make sure that a ticketpool is initialized by:
+   1. Option 1: Filling out the ticketpool initialization form in the GUI.
+   2. Option 2: Running a simulation in the GUI by providing the configuration parameters (this will automatically initilize a ticketpool for ticket handling operations)
 
+## Assumptions 
+### General:
++ Each Customer thread will only purchase 1 ticket.
++ Each Vendor thread will only release 1 ticket.
++ The number of tickets purchased and released will be based on the numOfCustomers & numOfVendors parameters.
+### For Configuration Parameters:
+1. totalTickets : The initial number of tickets that the ticketpool will be initialized with. This amount of tickets will increase/ decrease based on vendors releasing tickets and customers purchasing tickets. This ticket amount will always be within the maxTicketCapacity parameter and will not exceed it.
+2. maxTicketCapacity: The maximum number of tickets that a ticketpool can hold.
+3. customerRetreivalRate: The frequency of the purchase of tickets by the seperate customer threads. (e.g. if 1000 milliseconds is specified, customers will purchase tickets every 1000 milliseconds.)
+4. ticketReleaseRate: The frequency of the release of tickets by the seperate vendor threads. (e.g. if 1000 milliseconds is specified, vendors will purchase tickets every 1000 milliseconds.)
+5. numOfCustomers (Additional Parameter): The number of customer threads to be created for the simulation 
+6. numOfVendors (Additional Parameter): The number of customer threads to be created for the simulation 
