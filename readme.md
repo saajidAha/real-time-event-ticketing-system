@@ -60,4 +60,4 @@
 3. customerRetreivalRate: The frequency of the purchase of tickets by the seperate customer threads. (e.g. if 1000 milliseconds is specified, customers will purchase tickets every 1000 milliseconds.)
 4. ticketReleaseRate: The frequency of the release of tickets by the seperate vendor threads. (e.g. if 1000 milliseconds is specified, vendors will purchase tickets every 1000 milliseconds.)
 5. numOfCustomers (Additional Parameter): The number of customer threads to be created for the simulation 
-6. numOfVendors (Additional Parameter): The number of customer threads to be created for the simulation 
+6. numOfVendors (Additional Parameter): The number of vendor threads to be created for the simulation 
