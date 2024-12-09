@@ -1,11 +1,12 @@
 # Real Time Event Ticketing System (OOP CW)
-| **Heading**                 | **Description**                                                           |
-|-----------------------------|---------------------------------------------------------------------------|
-| **Name**                    | Saajid Ahamed                                                             |
-| **UoW ID**                  | w2052929                                                                  |
-| **IIT ID**                  | 20221921                                                                  |
-| **Main Technologies**       | Java (v21.0.5) (2024-10-15 LTS), React.js (v18.3.1), Spring Boot (v3.3.5) |
-| **Additional Technologies** | Node.js (v20.18.0) (Required for React.js Frontend)                       |
+| **Heading**                    | **Description**                                                                                                                                                                                                                                       |
+|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Name**                       | Saajid Ahamed                                                                                                                                                                                                                                         |
+| **UoW ID**                     | w2052929                                                                                                                                                                                                                                              |
+| **IIT ID**                     | 20221921                                                                                                                                                                                                                                              |
+| **Main Technologies**          | 1. Java (v21.0.5) (2024-10-15 LTS)<br/>2. React.js (v18.3.1) (FRONTEND)<br/>3. Spring Boot (v3.3.5) (BACKEND)                                                                                                                                         |
+| **Additional Technologies**    | Node.js (v20.18.0) (Required to run React.js server)                                                                                                                                                                                                  |
+| **Bonus Features implemented** | 1. Persistence. Saves transaction data to a database using H2 embedded database (http://localhost:8080/h2-console/)<br/>2. Advanced Synchronization (utilized ReentrantLock)<br/>3. Option to add / remove vendors & cutomers dynamically at runtime. |
 
 ## How to start CLI & SpringBoot Backend?
 ### Intellij IDEA IDE Guide: 
