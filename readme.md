@@ -13,8 +13,8 @@
 ### Intellij IDEA IDE Guide: 
 1. Make sure you are located in the parent directory named: "real-time-event-ticketing-system"
 2. Locate the subdirectory named: "realtimeTicketingApp" (Contains the CLI bundled with the SpringBoot Backend)
-3. Open the subdirectory using IntelliJ IDEA IDE.
-4. Click the run button after the project has been initialized by the IDE. (you will see a leaf icon & the name of the directory next to the left of the run button)
+3. Open the subdirectory using IntelliJ IDEA IDE and resolve/ install any dependencies/ configurations only if prompted by the IDE.
+4. Click the run button after the project has been initialized by the IDE (It will take a few seconds). (you will see a leaf icon & the name of the directory to the left of the run button)
 5. The project will build and run the CORE JAVA CLI first & based on user input, it will start and stop the SpringBoot backend server automatically.
 
 ### CMD / BASH Terminal Guide (Optional):  
