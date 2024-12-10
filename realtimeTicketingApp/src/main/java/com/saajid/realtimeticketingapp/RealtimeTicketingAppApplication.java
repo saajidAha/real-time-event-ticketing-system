@@ -16,7 +16,7 @@ public class RealtimeTicketingAppApplication {
 			while(CommandLineInterface.checkYesNoResponse("Do you want to use the command line again?"));
 		}
 //		Start the springboot server based on user response else terminate the program
-		if (CommandLineInterface.checkYesNoResponse("Do you want to start the SpringBoot Server & React Front-end server? (Yes: SERVER START / No: SYSTEM STOP)")) {
+		if (CommandLineInterface.checkYesNoResponse("Do you want to start the SpringBoot Backend Server? (Yes: SERVER START / No: SYSTEM STOP)")) {
 			SpringApplication.run(RealtimeTicketingAppApplication.class, args);
 		}else{
 			System.out.println("Program terminated successfully.");
