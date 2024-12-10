@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 /**
  * This class is responsible for the creation of multiple customer threads
  */
-@AllArgsConstructor
+@AllArgsConstructor // creates constructor and takes ticketpool as an argument
 public class CustomerRunner implements Runnable {
     private TicketPool ticketPool;
 
