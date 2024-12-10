@@ -1,6 +1,6 @@
 import {useState} from "react";
 import axios from "axios";
-
+// This is the main form for the simulation purposes
 const ConfigurationForm = () => {
     // state to keep track of configuration form inputs
     const [formInfo, setFormInfo] = useState({
@@ -11,6 +11,7 @@ const ConfigurationForm = () => {
         numOfVendors: 0,
         numOfCustomers: 0
     });
+    // state to keep track of errors
     const [capacityErrorMsg, setCapacityErrorMsg] = useState("");
     const [positiveErrorMsg, setPositiveErrorMsg] = useState("");
     const [nonNumericErrorMsg, setNonNumericErrorMsg] = useState("");
@@ -30,7 +31,7 @@ const ConfigurationForm = () => {
     const preventDefaultRefresh = (event) => {
         event.preventDefault();
     }
-
+    // sends requests to the backend with configuration parameters (after validation)
     const startSimulation = async() => {
         if (validateInput()){
             setCapacityErrorMsg(""); setPositiveErrorMsg(""); setNonNumericErrorMsg("");
@@ -43,7 +44,7 @@ const ConfigurationForm = () => {
             }
         }
     }
-
+    // sends request to backend to stop simulation
     const stopSimulation = async() => {
         try{
             await axios.post("http://localhost:8080/tickets/stop")
@@ -51,6 +52,7 @@ const ConfigurationForm = () => {
             console.log(error.message);
         }
     }
+    // validates user inputs and sets error message state accordingly
     const validateInput = () => {
         let validated = true;
         // validate user inputs

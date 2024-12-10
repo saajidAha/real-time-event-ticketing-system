@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-
+// Display real time ticket data
 const TicketDisplay = () => {
+    // state array to keep track of incoming tickets information
     const [tickets, setTickets] = useState([]);
-
+    // fetch tickets info from the backend
     const fetchTickets = async() => {
         try{
             let response = await axios.get("http://localhost:8080/tickets");
@@ -13,7 +14,7 @@ const TicketDisplay = () => {
             console.log(error.message);
         }
     }
-
+    // fetch ticket info every 500 milliseconds
     useEffect( ()=>{
         let intervalID = setInterval(fetchTickets, 500);
         return () => {clearInterval(intervalID)};

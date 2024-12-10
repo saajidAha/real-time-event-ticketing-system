@@ -1,5 +1,4 @@
 import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
 import {Outlet} from "react-router-dom";
 import TicketDisplay from "../components/TicketDisplay.jsx";
 import LogDisplay from "../components/LogDisplay.jsx";
@@ -13,7 +12,6 @@ const MainLayout = () => {
             <Outlet />
             <TicketDisplay />
             <LogDisplay />
-            <Footer />
         </>
     )
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import {useState} from "react";
-
+// form to initialize and reset ticket pool
 const TicketPoolForm = () => {
     // state to track the form data
     const [formData, setFormData] = useState({});
@@ -8,7 +8,7 @@ const TicketPoolForm = () => {
     const [positiveErrorMsg, setPositiveErrorMsg] = useState("");
     const [nonNumericErrorMsg, setNonNumericErrorMsg] = useState("");
 
-    // Create a ticket pool
+    // send request to create a ticket pool based on the collected form info after validation of user inputs
     const createTicketPool = async() => {
         if(validateInput()){
             setCapacityErrorMsg(""); setPositiveErrorMsg(""); setNonNumericErrorMsg("");
@@ -22,7 +22,7 @@ const TicketPoolForm = () => {
             }
         }
     }
-
+    // validate user inputs and set the state of error msgs to display them accordingly
     const validateInput = () => {
         let validated = true;
         // validate user inputs

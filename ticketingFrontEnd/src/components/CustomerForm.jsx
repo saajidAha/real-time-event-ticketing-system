@@ -1,10 +1,10 @@
 import axios from "axios";
 import {useState} from "react";
-
+// The customer ticket purchase section form
 const CustomerForm = () => {
     // state to track the id of the ticket
     const [ticketID, setTicketID] = useState("");
-    // Buy a single ticket
+    // sedn request to backend to buy a single ticket
     const buyTicket = async() => {
             console.log(ticketID);
         try {
@@ -26,6 +26,7 @@ const CustomerForm = () => {
                 <h2 className="text-2xl font-bold pb-4">
                     <span className="text-red-700">Customer</span> Ticket Purchase Section
                 </h2>
+                {/*prevents full page refresh on submission*/}
                 <form onSubmit={(event) => {
                     event.preventDefault()
                 }}>

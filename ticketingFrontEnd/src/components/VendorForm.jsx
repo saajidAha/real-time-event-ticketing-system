@@ -1,10 +1,10 @@
 import axios from "axios";
 import {useState} from "react";
-
+// form that will be used for vendors to release specific tickets
 const VendorForm = () => {
     // state to track the id of the ticket
     const [ticketID, setTicketID] = useState("");
-    // Release a specific ticket
+    // send request to backend release a specific ticket
     const releaseTicket = async() => {
         console.log(ticketID);
         try {
