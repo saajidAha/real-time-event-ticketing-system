@@ -7,7 +7,6 @@ import NavBar from "../components/NavBar.jsx";
 const MainLayout = () => {
   return (
     <>
-      <Header />
       <NavBar />
       <Outlet />
       <TicketDisplay />
