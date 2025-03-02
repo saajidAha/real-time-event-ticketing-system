@@ -34,9 +34,9 @@ const TicketCardContainer = () => {
           {tickets.map((ticket, index) => (
             <TicketCard key={index} className="py-1" id={ticket.ticketID} />
           ))}
-          <TicketCard id="#A988B4U" />
-          <TicketCard id="#A988B4U" />
-          <TicketCard id="#A988B4U" />
+          <TicketCard />
+          <TicketCard />
+          <TicketCard />
         </div>
       </section>
     </HorizontalCenterContainer>

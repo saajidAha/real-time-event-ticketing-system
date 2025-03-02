@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import HorizontalCenterContainer from "./HorizontalCenterContainer.jsx";
 // Displays all the log information that is being tracked by the backend
 const LogDisplay = () => {
   // array to keep track of incoming log updates
