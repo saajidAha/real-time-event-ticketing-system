@@ -4,15 +4,15 @@ import TicketDisplay from "../components/TicketDisplay.jsx";
 import LogDisplay from "../components/LogDisplay.jsx";
 import NavBar from "../components/NavBar.jsx";
 import Footer from "../components/Footer.jsx";
+import TicketCardContainer from "../components/TicketCardContainer.jsx";
 
 const MainLayout = () => {
   return (
     <>
       <NavBar />
       <Outlet />
-      {/*<TicketDisplay />*/}
-      {/*<LogDisplay />*/}
-      <Footer />
+      <TicketCardContainer />
+      {/*<Footer />*/}
     </>
   );
 };
