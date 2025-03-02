@@ -1,13 +1,11 @@
-import axios from "axios";
-
 const GrayButton = ({ action, value }) => {
   return (
-    <button
+    <input
+      className="h-max w-max cursor-pointer rounded-lg bg-gray-200 px-3 py-1 text-sm"
       onClick={action}
-      className="cursor-pointer self-start rounded-full bg-gray-200 px-3"
-    >
-      {value}
-    </button>
+      value={value}
+      type="submit"
+    />
   );
 };
 export default GrayButton;

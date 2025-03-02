@@ -37,10 +37,10 @@ const LogDisplay = () => {
         <div className="font-regular text-lg">Real time logs from backend</div>
         <GrayButton action={clearLogs} value="Clear" />
       </div>
-      <div className="h-30 scroll-auto shadow-lg md:h-70">
+      <div className="h-30 overflow-y-auto rounded-lg shadow-lg md:h-70">
         <ul className="list-disc px-2 text-sm font-light text-black">
-          {data.map((item, index) => (
-            <li key={index} className="py-1">
+          {data.toReversed().map((item, index) => (
+            <li key={index} className="ml-4 py-1">
               {item}
             </li>
           ))}

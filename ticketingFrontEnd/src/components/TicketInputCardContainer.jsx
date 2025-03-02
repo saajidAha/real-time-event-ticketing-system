@@ -7,7 +7,7 @@ const TicketInputCardContainer = ({ title, label, action, changeFunction }) => {
     <section className="flex flex-col md:w-[48%]">
       <Title value={title} />
       <form
-        className="flex w-full flex-col gap-2 py-4 shadow-lg"
+        className="flex w-full flex-col gap-6 rounded-lg py-3 shadow-lg"
         onSubmit={(event) => event.preventDefault()}
       >
         <TextField label={label} changeFunction={changeFunction} />

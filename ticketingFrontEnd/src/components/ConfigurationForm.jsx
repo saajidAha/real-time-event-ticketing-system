@@ -87,9 +87,9 @@ const ConfigurationForm = () => {
           name="numOfCustomers"
           label="Customer Count"
         />
-        <div className="flex gap-4">
+        <div className="flex items-end gap-4">
           <GrayButton action={stopSimulation} value="Stop" />
-          <BlackButton action={stopSimulation} value="Start" />
+          <BlackButton action={startSimulation} value="Start" />
         </div>
       </form>
     </section>

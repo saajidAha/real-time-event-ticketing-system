@@ -2,7 +2,7 @@ const BlackButton = ({ value, action }) => {
   return (
     <input
       onClick={action}
-      className="cursor-pointer self-start rounded-full bg-black px-3 text-white"
+      className="h-max w-max cursor-pointer rounded-lg bg-black px-3 py-1 text-sm text-white"
       value={value}
       type="submit"
     />

@@ -19,6 +19,15 @@ const TicketCardContainer = () => {
       console.log(error.message);
     }
   };
+  // reset the ticketpool
+  const resetPool = async () => {
+    try {
+      await axios.post("http://localhost:8080/tickets/resetpool");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   // fetch ticket info every 500 milliseconds
   useEffect(() => {
     let intervalID = setInterval(fetchTickets, 500);
@@ -29,13 +38,13 @@ const TicketCardContainer = () => {
 
   return (
     <HorizontalCenterContainer>
-      <section className="mt-8 mb-12 w-[95%] max-w-screen-lg">
-        <div className="flex w-full justify-between">
+      <section className="mb-12 w-[95%] max-w-screen-lg pt-12">
+        <div className="flex justify-between">
           <Title value="Available Tickets (Live)" />
-          <GrayButton value="Reset Pool" />
+          <GrayButton value="Reset Pool" action={resetPool} />
         </div>
-        <div className="grid grid-cols-3 gap-5 md:grid-cols-5 md:gap-12">
-          {tickets.map((ticket, index) => (
+        <div className="mt-10 grid grid-cols-3 gap-5 md:grid-cols-5 md:gap-12">
+          {tickets.toReversed().map((ticket, index) => (
             <TicketCard key={index} className="py-1" id={ticket.ticketID} />
           ))}
           {/* Below is just dummy tickets for the UI*/}
