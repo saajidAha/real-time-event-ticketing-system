@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import TicketInputCardContainer from "./TicketInputCardContainer.jsx";
 // form to initialize and reset ticket pool
 const TicketPoolForm = () => {
   // state to track the form data
@@ -10,6 +11,7 @@ const TicketPoolForm = () => {
 
   // send request to create a ticket pool based on the collected form info after validation of user inputs
   const createTicketPool = async () => {
+    console.log(formData);
     if (validateInput()) {
       setCapacityErrorMsg("");
       setPositiveErrorMsg("");
@@ -81,62 +83,68 @@ const TicketPoolForm = () => {
   };
 
   return (
-    // <div className="inline-flex flex-col">
-    <div className="border-3 ml-2 mt-2 inline-flex w-[500px] flex-col rounded-lg border-2 border-black bg-white p-4 text-black">
-      <h2 className="pb-4 text-2xl font-bold">
-        <span className="text-red-700">Ticket Pool</span> Initialization Form
-      </h2>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-        }}
-      >
-        <div>
-          <label htmlFor="totalTickets" className="inline-block w-60">
-            Total Tickets:{" "}
-          </label>
-          <input
-            type="text"
-            onChange={handleChange}
-            placeholder="Initial number of tickets"
-            name="totalTickets"
-            className=""
-          />
-        </div>
-        <div>
-          <label htmlFor="maxTicketCapacity" className="inline-block w-60">
-            Max Ticket Capacity:{" "}
-          </label>
-          <input
-            type="text"
-            onChange={handleChange}
-            placeholder="value"
-            name="maxTicketCapacity"
-          />
-        </div>
-        <input
-          onClick={createTicketPool}
-          className="mt-2 cursor-pointer rounded-full border-2 bg-green-700 px-3 font-medium text-white"
-          value="Initialize"
-          type="submit"
-        />
-        <input
-          onClick={resetPool}
-          className="mt-2 cursor-pointer rounded-full border-2 bg-red-700 px-3 font-medium text-white"
-          value="RESET Ticket Pool"
-          type="submit"
-        />
-      </form>
-      <h2 className="w-[300px] text-[14px] font-bold text-red-700">
-        {capacityErrorMsg}
-      </h2>
-      <h2 className="w-[300px] text-[14px] font-bold text-red-700">
-        {positiveErrorMsg}
-      </h2>
-      <h2 className="w-[300px] text-[14px] font-bold text-red-700">
-        {nonNumericErrorMsg}
-      </h2>
-    </div>
+    <TicketInputCardContainer
+      title="Initialize Ticket Pool"
+      label="Initial Ticket Count"
+      action={createTicketPool}
+      changeFunction={handleChange}
+    />
   );
+  // // <div className="inline-flex flex-col">
+  // <div className="border-3 ml-2 mt-2 inline-flex w-[500px] flex-col rounded-lg border-2 border-black bg-white p-4 text-black">
+  //   <h2 className="pb-4 text-2xl font-bold">
+  //     <span className="text-red-700">Ticket Pool</span> Initialization Form
+  //   </h2>
+  //   <form
+  //     onSubmit={(event) => {
+  //       event.preventDefault();
+  //     }}
+  //   >
+  //     <div>
+  //       <label htmlFor="totalTickets" className="inline-block w-60">
+  //         Total Tickets:{" "}
+  //       </label>
+  //       <input
+  //         type="text"
+  //         onChange={handleChange}
+  //         placeholder="Initial number of tickets"
+  //         name="totalTickets"
+  //         className=""
+  //       />
+  //     </div>
+  //     <div>
+  //       <label htmlFor="maxTicketCapacity" className="inline-block w-60">
+  //         Max Ticket Capacity:{" "}
+  //       </label>
+  //       <input
+  //         type="text"
+  //         onChange={handleChange}
+  //         placeholder="value"
+  //         name="maxTicketCapacity"
+  //       />
+  //     </div>
+  //     <input
+  //       onClick={createTicketPool}
+  //       className="mt-2 cursor-pointer rounded-full border-2 bg-green-700 px-3 font-medium text-white"
+  //       value="Initialize"
+  //       type="submit"
+  //     />
+  //     <input
+  //       onClick={resetPool}
+  //       className="mt-2 cursor-pointer rounded-full border-2 bg-red-700 px-3 font-medium text-white"
+  //       value="RESET Ticket Pool"
+  //       type="submit"
+  //     />
+  //   </form>
+  //   <h2 className="w-[300px] text-[14px] font-bold text-red-700">
+  //     {capacityErrorMsg}
+  //   </h2>
+  //   <h2 className="w-[300px] text-[14px] font-bold text-red-700">
+  //     {positiveErrorMsg}
+  //   </h2>
+  //   <h2 className="w-[300px] text-[14px] font-bold text-red-700">
+  //     {nonNumericErrorMsg}
+  //   </h2>
+  // </div>
 };
 export default TicketPoolForm;

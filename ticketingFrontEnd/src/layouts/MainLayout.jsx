@@ -12,7 +12,7 @@ const MainLayout = () => {
       <NavBar />
       <Outlet />
       <TicketCardContainer />
-      {/*<Footer />*/}
+      <Footer />
     </>
   );
 };

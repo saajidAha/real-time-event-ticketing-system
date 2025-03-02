@@ -26,7 +26,7 @@ const TicketCardContainer = () => {
 
   return (
     <HorizontalCenterContainer>
-      <section className="mt-8 w-[95%] max-w-screen-lg">
+      <section className="mt-8 mb-12 w-[95%] max-w-screen-lg">
         <div className="font-regular mb-6 text-lg">
           Available Tickets (Live)
         </div>

@@ -111,7 +111,7 @@ const ConfigurationForm = () => {
       >
         <TextField
           changeFunction={handleChange}
-          name="totaltickets"
+          name="totalTickets"
           label="Initial Ticket Count"
         />
         <TextField
