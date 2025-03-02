@@ -31,18 +31,9 @@ const TicketCardContainer = () => {
           Available Tickets (Live)
         </div>
         <div className="grid grid-cols-3 gap-5 md:grid-cols-5 md:gap-12">
-          {/*{tickets.map((ticket, index) => (*/}
-          {/*  <TicketCard key={index} className="py-1" id={ticket.ticketID} />*/}
-          {/*))}*/}
-          <TicketCard id="#A988B4U" />
-          <TicketCard id="#A988B4U" />
-          <TicketCard id="#A988B4U" />
-          <TicketCard id="#A988B4U" />
-          <TicketCard id="#A988B4U" />
-          <TicketCard id="#A988B4U" />
-          <TicketCard id="#A988B4U" />
-          <TicketCard id="#A988B4U" />
-          <TicketCard id="#A988B4U" />
+          {tickets.map((ticket, index) => (
+            <TicketCard key={index} className="py-1" id={ticket.ticketID} />
+          ))}
           <TicketCard id="#A988B4U" />
           <TicketCard id="#A988B4U" />
           <TicketCard id="#A988B4U" />
