@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import TextField from "./TextField.jsx";
+import BlackButton from "./BlackButton.jsx";
+import GrayButton from "./GrayButton.jsx";
 // This is the main form for the simulation purposes
 const ConfigurationForm = () => {
   // state to keep track of configuration form inputs
@@ -86,18 +88,8 @@ const ConfigurationForm = () => {
           label="Customer Count"
         />
         <div className="flex gap-4">
-          <input
-            onClick={stopSimulation}
-            className="cursor-pointer rounded-full bg-gray-200 px-3 font-medium text-black"
-            value="Stop"
-            type="submit"
-          />
-          <input
-            onClick={startSimulation}
-            className="cursor-pointer rounded-full bg-black px-3 font-medium text-white"
-            value="Start"
-            type="submit"
-          />
+          <GrayButton action={stopSimulation} value="Stop" />
+          <BlackButton action={stopSimulation} value="Start" />
         </div>
       </form>
     </section>

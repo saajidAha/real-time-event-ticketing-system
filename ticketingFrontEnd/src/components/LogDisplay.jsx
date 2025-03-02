@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import GrayButton from "./GrayButton.jsx";
 // Displays all the log information that is being tracked by the backend
 const LogDisplay = () => {
   // array to keep track of incoming log updates
@@ -34,15 +35,10 @@ const LogDisplay = () => {
     <section className="flex w-full flex-col gap-4 md:w-[48%]">
       <div className="flex justify-between">
         <div className="font-regular text-lg">Real time logs from backend</div>
-        <button
-          onClick={clearLogs}
-          className="text-4 ml-4 cursor-pointer rounded-full bg-gray-200 px-3 font-medium text-black"
-        >
-          Clear
-        </button>
+        <GrayButton action={clearLogs} value="Clear" />
       </div>
       <div className="h-30 scroll-auto shadow-lg md:h-70">
-        <ul className="list-disc px-2 text-lg text-black">
+        <ul className="list-disc px-2 text-sm font-light text-black">
           {data.map((item, index) => (
             <li key={index} className="py-1">
               {item}

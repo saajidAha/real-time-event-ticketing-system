@@ -19,14 +19,6 @@ const TicketPoolForm = () => {
       console.log(error.message);
     }
   };
-  // reset the ticketpool
-  const resetPool = async () => {
-    try {
-      await axios.post("http://localhost:8080/tickets/resetpool");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   // handle the changes of the input text and set the state;
   const handleChange = (event) => {

@@ -1,6 +1,6 @@
 import Title from "./Title.jsx";
 import TextField from "./TextField.jsx";
-import SubmitButton from "./SubmitButton.jsx";
+import BlackButton from "./BlackButton.jsx";
 
 const TicketInputCardContainer = ({ title, label, action, changeFunction }) => {
   return (
@@ -11,7 +11,7 @@ const TicketInputCardContainer = ({ title, label, action, changeFunction }) => {
         onSubmit={(event) => event.preventDefault()}
       >
         <TextField label={label} changeFunction={changeFunction} />
-        <SubmitButton value="Confirm" action={action} />
+        <BlackButton value="Confirm" action={action} />
       </form>
     </section>
   );
