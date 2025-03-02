@@ -103,10 +103,11 @@ const ConfigurationForm = () => {
     return validated;
   };
   return (
-    <HorizontalCenterContainer styles="mt-44">
+    <section className="flex flex-col md:w-[48%]">
+      <div className="font-regular text-lg">Simulation Panel</div>
       <form
         onSubmit={preventDefaultRefresh}
-        className="flex w-[95%] flex-col gap-4 py-4 shadow-lg"
+        className="flex w-full flex-col gap-4 py-4 shadow-lg"
       >
         <TextField
           changeFunction={handleChange}
@@ -153,7 +154,7 @@ const ConfigurationForm = () => {
           />
         </div>
       </form>
-    </HorizontalCenterContainer>
+    </section>
   );
 };
 export default ConfigurationForm;

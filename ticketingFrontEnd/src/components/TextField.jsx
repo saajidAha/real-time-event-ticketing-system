@@ -1,7 +1,7 @@
 const TextField = ({ changeFunction, name, label }) => {
   return (
     <div className="flex">
-      <label htmlFor={name} className="w-[50%]">
+      <label htmlFor={name} className="w-[50%] font-light">
         {label}:
       </label>
       <input

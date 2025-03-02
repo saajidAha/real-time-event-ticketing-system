@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import HorizontalCenterContainer from "./HorizontalCenterContainer.jsx";
 // Displays all the log information that is being tracked by the backend
 const LogDisplay = () => {
   // array to keep track of incoming log updates
@@ -31,24 +32,26 @@ const LogDisplay = () => {
   }, []);
 
   return (
-    <div className="mt-2 ml-2 inline-flex min-h-[300px] w-[500px] flex-col rounded-lg border-2 border-3 border-black bg-white p-4 text-black">
-      <h2 className="text-center text-2xl font-bold">
-        <span className="text-red-700">Live</span> logs from backend
+    <section className="flex w-full flex-col gap-4 md:w-[48%]">
+      <div className="flex justify-between">
+        <div className="font-regular text-lg">Real time logs from backend</div>
         <button
           onClick={clearLogs}
-          className="ml-4 cursor-pointer rounded-full border-2 bg-red-700 px-3 text-[15px] font-medium text-white"
+          className="text-4 ml-4 cursor-pointer rounded-full bg-gray-200 px-3 font-medium text-black"
         >
           Clear
         </button>
-      </h2>
-      <ul className="list-disc px-5 text-[16px] text-black">
-        {data.map((item, index) => (
-          <li key={index} className="py-1">
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
+      </div>
+      <div className="h-30 scroll-auto shadow-lg md:h-70">
+        <ul className="list-disc px-2 text-lg text-black">
+          {data.map((item, index) => (
+            <li key={index} className="py-1">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 };
 
