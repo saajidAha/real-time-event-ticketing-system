@@ -44,10 +44,10 @@ import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <HorizontalCenterContainer styles="bg-white/30 backdrop-blur-md shadow-lg shadow-purple-500 fixed top-0 z-10 py-4 md:py-0 rounded-b-xl">
+    <HorizontalCenterContainer styles="bg-white/30 backdrop-blur-md shadow-lg fixed top-0 z-10 py-4 md:py-0 rounded-b-xl">
       <nav className="flex w-full max-w-screen-lg flex-col items-center gap-2 md:flex-row md:justify-between">
         <img src={logo} alt="logo" className="h-20 rounded object-contain" />
-        <div className="flex w-full justify-around font-bold text-purple-900 md:justify-end md:gap-12 md:pr-4">
+        <div className="flex w-full justify-around text-black md:justify-end md:gap-12 md:pr-4">
           <div className="hover:text-black">
             <NavLink to="/">Simulation</NavLink>
           </div>

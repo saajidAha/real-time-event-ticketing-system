@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import HorizontalCenterContainer from "./HorizontalCenterContainer.jsx";
+import TextField from "./TextField.jsx";
 // This is the main form for the simulation purposes
 const ConfigurationForm = () => {
   // state to keep track of configuration form inputs
@@ -100,119 +102,175 @@ const ConfigurationForm = () => {
     }
     return validated;
   };
-  // inputs with labels
   return (
-    <div className="border-3 ml-2 mt-2 inline-flex min-h-[300px] w-[500px] flex-col rounded-lg border-2 border-black bg-white p-4 text-black">
-      <h2 className="text-center text-2xl font-bold">
-        <span className="text-red-700">Simulation</span> Panel
-      </h2>
-      <h2 className="pb-4 text-center text-2xl font-bold">
-        (Enter Configuration Parameters)
-      </h2>
-      <form onSubmit={preventDefaultRefresh}>
-        {" "}
-        {/*prevent page from refreshing when submit*/}
-        <div>
-          <label className="inline-block w-60" htmlFor="totaltickets">
-            Total Tickets:{" "}
-          </label>
-          <input
-            onChange={handleChange}
-            required
-            type="text"
-            name="totalTickets"
-            placeholder="Initial nos of tickets"
-            className="px-2"
-          />
-        </div>
-        <div>
-          <label className="inline-block w-60" htmlFor="ticketReleaseRate">
-            Ticket Release Rate:{" "}
-          </label>
-          <input
-            onChange={handleChange}
-            required
-            type="text"
-            name="ticketReleaseRate"
-            placeholder="interval (milliseconds)"
-            className="px-2"
-          />
-        </div>
-        <div>
-          <label className="inline-block w-60" htmlFor="customerRetrievalRate">
-            Customer Retreival Rate:{" "}
-          </label>
-          <input
-            onChange={handleChange}
-            required
-            type="text"
-            name="customerRetrievalRate"
-            placeholder="interval (milliseconds)"
-            className="px-2"
-          />
-        </div>
-        <div>
-          <label className="inline-block w-60" htmlFor="maxTicketCapacity">
-            Maximum Ticket Capacity:{" "}
-          </label>
-          <input
-            onChange={handleChange}
-            required
-            type="text"
-            name="maxTicketCapacity"
-            placeholder="value"
-            className="px-2"
-          />
-        </div>
-        <div>
-          <label className="inline-block w-60" htmlFor="numOfVendors">
-            Number of Vendors:
-          </label>
-          <input
-            onChange={handleChange}
-            required
-            type="text"
-            name="numOfVendors"
-            placeholder="value"
-            className="px-2"
-          />
-        </div>
-        <div>
-          <label className="inline-block w-60" htmlFor="numOfCustomers">
-            Number of Customers:{" "}
-          </label>
-          <input
-            onChange={handleChange}
-            required
-            type="text"
-            name="numOfCustomers"
-            placeholder="value"
-            className="px-2"
-          />
-        </div>
-        <input
-          onClick={startSimulation}
-          className="mt-2 cursor-pointer rounded-full border-2 bg-green-700 px-3 font-medium text-white"
-          value="Start"
-          type="submit"
+    <HorizontalCenterContainer styles="mt-44">
+      <form
+        onSubmit={preventDefaultRefresh}
+        className="flex w-[95%] flex-col gap-4 py-4 shadow-lg"
+      >
+        <TextField
+          changeFunction={handleChange}
+          name="totaltickets"
+          label="Initial Ticket Count"
         />
-        <input
-          onClick={stopSimulation}
-          className="mt-2 cursor-pointer rounded-full border-2 bg-red-700 px-3 font-medium text-white"
-          value="Stop"
-          type="submit"
+        <TextField
+          changeFunction={handleChange}
+          name="ticketReleaseRate"
+          label="Ticket Release Rate"
         />
+        <TextField
+          changeFunction={handleChange}
+          name="customerRetrievalRate"
+          label="Retreival Rate"
+        />
+        <TextField
+          changeFunction={handleChange}
+          name="maxTicketCapacity"
+          label="Max Ticket Capacity"
+        />
+        <TextField
+          changeFunction={handleChange}
+          name="numOfVendors"
+          label="Vendor Count"
+        />
+        <TextField
+          changeFunction={handleChange}
+          name="numOfCustomers"
+          label="Customer Count"
+        />
+        <div className="flex gap-4">
+          <input
+            onClick={stopSimulation}
+            className="cursor-pointer rounded-full bg-gray-200 px-3 font-medium text-black"
+            value="Stop"
+            type="submit"
+          />
+          <input
+            onClick={startSimulation}
+            className="cursor-pointer rounded-full bg-black px-3 font-medium text-white"
+            value="Start"
+            type="submit"
+          />
+        </div>
       </form>
-      <h2 className="w-[300px] text-[14px] font-bold text-red-700">
-        {capacityErrorMsg}
-      </h2>
-      <h2 className="w-[300px] text-[14px] font-bold text-red-700">
-        {positiveErrorMsg}
-      </h2>
-      <h2 className="w-[300px] text-[14px] font-bold text-red-700">
-        {nonNumericErrorMsg}
-      </h2>
-    </div>
+    </HorizontalCenterContainer>
   );
 };
 export default ConfigurationForm;
+
+// inputs with labels
+// return (
+//       <div className="mt-44 inline-flex w-[95%] flex-col rounded-lg border-2 border-3 border-black bg-white p-4 text-black">
+//         <h2 className="text-center text-2xl font-bold">Simulation Panel</h2>
+//         <h2 className="pb-4 text-center text-2xl font-bold"></h2>
+//         <form onSubmit={preventDefaultRefresh}>
+//           {" "}
+//           {/*prevent page from refreshing when submit*/}
+//           <div>
+//             <label className="inline-block w-60" htmlFor="totaltickets">
+//               Total Tickets:{" "}
+//             </label>
+//             <input
+//               onChange={handleChange}
+//               required
+//               type="text"
+//               name="totalTickets"
+//               // // placeholder="Initial nos of tickets"
+//               className="px-2"
+//             />
+//           </div>
+//           <div>
+//             <label className="inline-block w-60" htmlFor="ticketReleaseRate">
+//               Ticket Release Rate:{" "}
+//             </label>
+//             <input
+//               onChange={handleChange}
+//               required
+//               type="text"
+//               name="ticketReleaseRate"
+//               // placeholder="interval (milliseconds)"
+//               className="px-2"
+//             />
+//           </div>
+//           <div>
+//             <label
+//               className="inline-block w-60"
+//               htmlFor="customerRetrievalRate"
+//             >
+//               Customer Retreival Rate:{" "}
+//             </label>
+//             <input
+//               onChange={handleChange}
+//               required
+//               type="text"
+//               name="customerRetrievalRate"
+//               // placeholder="interval (milliseconds)"
+//               className="px-2"
+//             />
+//           </div>
+//           <div>
+//             <label className="inline-block w-60" htmlFor="maxTicketCapacity">
+//               Maximum Ticket Capacity:{" "}
+//             </label>
+//             <input
+//               onChange={handleChange}
+//               required
+//               type="text"
+//               name="maxTicketCapacity"
+//               // placeholder="value"
+//               className="px-2"
+//             />
+//           </div>
+//           <div>
+//             <label className="inline-block w-60" htmlFor="numOfVendors">
+//               Number of Vendors:
+//             </label>
+//             <input
+//               onChange={handleChange}
+//               required
+//               type="text"
+//               name="numOfVendors"
+//               // placeholder="value"
+//               className="px-2"
+//             />
+//           </div>
+//           <div>
+//             <label className="inline-block w-60" htmlFor="numOfCustomers">
+//               Number of Customers:{" "}
+//             </label>
+//             <input
+//               onChange={handleChange}
+//               required
+//               type="text"
+//               name="numOfCustomers"
+//               // placeholder="value"
+//               className="px-2"
+//             />
+//           </div>
+//           <input
+//             onClick={startSimulation}
+//             className="mt-2 cursor-pointer rounded-full border-2 bg-green-700 px-3 font-medium text-white"
+//             value="Start"
+//             type="submit"
+//           />
+//           <input
+//             onClick={stopSimulation}
+//             className="mt-2 cursor-pointer rounded-full border-2 bg-red-700 px-3 font-medium text-white"
+//             value="Stop"
+//             type="submit"
+//           />
+//         </form>
+//         <h2 className="w-[300px] text-[14px] font-bold text-red-700">
+//           {capacityErrorMsg}
+//         </h2>
+//         <h2 className="w-[300px] text-[14px] font-bold text-red-700">
+//           {positiveErrorMsg}
+//         </h2>
+//         <h2 className="w-[300px] text-[14px] font-bold text-red-700">
+//           {nonNumericErrorMsg}
+//         </h2>
+//       </div>
+//     </HorizontalCenterContainer>
+//   );
+// };
+// export default ConfigurationForm;
